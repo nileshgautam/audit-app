@@ -1,0 +1,11 @@
+.risk-info{
+	/* margin:30px 1rem 30px 1rem; */
+	text-align: justify;
+	width: 95%;
+	box-shadow: 5px 7px 10px #524f4f54;
+	line-height: 1.6;
+	padding: 2px 5px 2px 2px;
+}
+.heading{
+	margin: 10px 0 30px 2rem;
+}
