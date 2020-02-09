@@ -1,9 +1,8 @@
-<div class="bg-gradient-primary" style="padding:86px 0px">
+<div class="bg-primary">
   <div class="container">
     <!-- Outer Row -->
-    <div class="row justify-content-center" style="padding:40px">
+    <div class="row justify-content-center" style="margin-top:10%;">
       <div class="col-xl-10 col-lg-12 col-md-9">
-
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
@@ -18,7 +17,7 @@
                         showAlert("<?php echo $this->session->flashdata('msg'); ?>", 'danger');
                       </script>
                     <?php } ?>
-                    <img class="h-25 " src="<?php echo base_url('assets/img/logoiso27001.png') ?>" alt="Logo">
+                    <img class="h-25 " src="<?php echo base_url('assets/img/logoiso27001.png') ?>" alt="Logo" height="50px" width="100px">
                     <h3 class="text-gray-900">Login</h3>
                   </div>
                   <form class="user" action="<?php echo base_url('Login/auth') ?>" method="post">

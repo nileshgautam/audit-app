@@ -53,12 +53,12 @@
        <li class="nav-item">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
            <i class="fas fa-fw fa-table"></i>
-           <span>Comapany List</span>
+           <span>Client List</span>
          </a>
          <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
            <div class="bg-white py-2 collapse-inner rounded">
              <h6 class="collapse-header">Comapany List</h6>
-             <a class="collapse-item" href="<?php echo base_url('admin/company-list') ?>">Comapany List</a>
+             <a class="collapse-item" href="<?php echo base_url('Auditapp/company') ?>">Comapany List</a>
            </div>
          </div>
        </li>

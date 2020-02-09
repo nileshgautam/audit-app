@@ -9,6 +9,17 @@
 </footer>
 <!-- End of Footer -->
 
+<?php if ($this->session->flashdata('error') != "") { ?>
+    <script>
+        showAlert("<?php echo $this->session->flashdata('error'); ?>", 'danger');
+    </script>
+<?php } else if ($this->session->flashdata('success') != "") { ?>
+    <script>
+        showAlert("<?php echo $this->session->flashdata('success'); ?>", 'success');
+    </script>
+<?php } ?> 
+
+
 <!-- End of Content Wrapper -->
 
 </div>
