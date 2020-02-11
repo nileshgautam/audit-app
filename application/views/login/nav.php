@@ -18,32 +18,30 @@
        <!-- Divider -->
        <hr class="sidebar-divider">
 
-
-       <!-- <hr class="sidebar-divider"> -->
-
-       <!-- Nav Item - Create user Collapse Menu -->
        <li class="nav-item">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusers" aria-expanded="true" aria-controls="collapseusers">
            <i class="fa fa-user" aria-hidden="true"></i>
            <span>List Process</span>
          </a>
-         <?php $process=$this->MainModel->selectAll('tbl_process');?>
+         <?php $process = $this->MainModel->selectAll('tbl_process'); ?>
          <div id="collapseusers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
            <div class="bg-white py-2 collapse-inner rounded">
              <h6 class="collapse-header">List Process</h6>
-             <?php if(isset($process)){
-               foreach($process as $process){ ?>
-                 <a class="collapse-item" href="#"><?php echo $process['process_name']?></a>
-          
-            <ul>
-         
-            <?php
-            $sub_process=$this->MainModel->selectAllFromWhere('tbl_sub_process', array('process_id'=>$process['id']));
-            foreach($sub_process as $subprocess){ ?>
-               <li class="nav-item"><a href="<?php echo base_url('Auditapp/work_steps/').$subprocess['id']?>"><?php echo $subprocess['sub_process_name']?></a></li>
-            <?php }?> 
-            <?php }} ?>
-            </ul>
+             <?php if (!empty($process)) {
+                foreach ($process as $process) { ?>
+                 <a class="collapse-item" href="#"><?php echo $process['process_name'] ?></a>
+                 <ul>
+                   <?php
+                    $sub_process = $this->MainModel->selectAllFromWhere('tbl_sub_process', array('process_id' => $process['id']));
+
+                    if (!empty($sub_process)) {
+                      foreach ($sub_process as $subprocess) { ?>
+                       <li class="nav-item"><a href="<?php echo base_url('Auditapp/work_steps/') . $subprocess['id'] ?>"><?php echo $subprocess['sub_process_name'] ?></a></li>
+                     <?php } ?>
+               <?php }
+                  }
+                } ?>
+                 </ul>
            </div>
          </div>
        </li>
@@ -57,13 +55,13 @@
          </a>
          <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
            <div class="bg-white py-2 collapse-inner rounded">
-             <h6 class="collapse-header">Comapany List</h6>
-             <a class="collapse-item" href="<?php echo base_url('Auditapp/company') ?>">Comapany List</a>
+             <h6 class="collapse-header">Client list</h6>
+             <a class="collapse-item" href="<?php echo base_url('Auditapp/company') ?>">Client list</a>
+             <a class="collapse-item" href="<?php echo base_url('Auditapp/user_tab') ?>">User list</a>
            </div>
          </div>
        </li>
        <!--ACCESS MENUS FOR Process-->
-
 
      <?php elseif ($_SESSION['userInfo']['user_role'] === '20') : ?>
        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -74,10 +72,165 @@
        </a>
        <!-- Divider -->
        <hr class="sidebar-divider my-0">
+       <!-- Nav Item - Dashboard -->
 
+       <!-- Divider -->
+       <hr class="sidebar-divider">
+
+       <li class="nav-item">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusers" aria-expanded="true" aria-controls="collapseusers">
+           <i class="fa fa-user" aria-hidden="true"></i>
+           <span>List Process</span>
+         </a>
+         <?php $process = $this->MainModel->selectAll('tbl_process'); ?>
+         <div id="collapseusers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+           <div class="bg-white py-2 collapse-inner rounded">
+             <h6 class="collapse-header">List Process</h6>
+             <?php if (!empty($process)) {
+                foreach ($process as $process) { ?>
+                 <a class="collapse-item" href="#"><?php echo $process['process_name'] ?></a>
+                 <ul>
+                   <?php
+                    $sub_process = $this->MainModel->selectAllFromWhere('tbl_sub_process', array('process_id' => $process['id']));
+
+                    if (!empty($sub_process)) {
+                      foreach ($sub_process as $subprocess) { ?>
+                       <li class="nav-item"><a href="<?php echo base_url('Auditapp/work_steps/') . $subprocess['id'] ?>"><?php echo $subprocess['sub_process_name'] ?></a></li>
+                     <?php } ?>
+               <?php }
+                  }
+                } ?>
+                 </ul>
+           </div>
+         </div>
+       </li>
+
+     <?php elseif ($_SESSION['userInfo']['user_role'] === '30') : ?>
+       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+         <div class="sidebar-brand-icon rotate-n-0">
+           <i class="fas fa-user"></i>
+         </div>
+         <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['userInfo']['username']; ?></div>
+       </a>
+       <!-- Divider -->
+       <hr class="sidebar-divider my-0">
+       <!-- Nav Item - Dashboard -->
+
+       <!-- Divider -->
+       <hr class="sidebar-divider">
+
+       <li class="nav-item">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusers" aria-expanded="true" aria-controls="collapseusers">
+           <i class="fa fa-user" aria-hidden="true"></i>
+           <span>List Process</span>
+         </a>
+         <?php $process = $this->MainModel->selectAll('tbl_process'); ?>
+         <div id="collapseusers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+           <div class="bg-white py-2 collapse-inner rounded">
+             <h6 class="collapse-header">List Process</h6>
+             <?php if (!empty($process)) {
+                foreach ($process as $process) { ?>
+                 <a class="collapse-item" href="#"><?php echo $process['process_name'] ?></a>
+                 <ul>
+                   <?php
+                    $sub_process = $this->MainModel->selectAllFromWhere('tbl_sub_process', array('process_id' => $process['id']));
+
+                    if (!empty($sub_process)) {
+                      foreach ($sub_process as $subprocess) { ?>
+                       <li class="nav-item"><a href="<?php echo base_url('Auditapp/work_steps/') . $subprocess['id'] ?>"><?php echo $subprocess['sub_process_name'] ?></a></li>
+                     <?php } ?>
+               <?php }
+                  }
+                } ?>
+                 </ul>
+           </div>
+         </div>
+       </li>
+
+     <?php elseif ($_SESSION['userInfo']['user_role'] === '40') : ?>
+       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+         <div class="sidebar-brand-icon rotate-n-0">
+           <i class="fas fa-user"></i>
+         </div>
+         <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['userInfo']['username']; ?></div>
+       </a>
+       <!-- Divider -->
+       <hr class="sidebar-divider my-0">
+       <!-- Nav Item - Dashboard -->
+
+       <!-- Divider -->
+       <hr class="sidebar-divider">
+
+       <li class="nav-item">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusers" aria-expanded="true" aria-controls="collapseusers">
+           <i class="fa fa-user" aria-hidden="true"></i>
+           <span>List Process</span>
+         </a>
+         <?php $process = $this->MainModel->selectAll('tbl_process'); ?>
+         <div id="collapseusers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+           <div class="bg-white py-2 collapse-inner rounded">
+             <h6 class="collapse-header">List Process</h6>
+             <?php if (!empty($process)) {
+                foreach ($process as $process) { ?>
+                 <a class="collapse-item" href="#"><?php echo $process['process_name'] ?></a>
+                 <ul>
+                   <?php
+                    $sub_process = $this->MainModel->selectAllFromWhere('tbl_sub_process', array('process_id' => $process['id']));
+
+                    if (!empty($sub_process)) {
+                      foreach ($sub_process as $subprocess) { ?>
+                       <li class="nav-item"><a href="<?php echo base_url('Auditapp/work_steps/') . $subprocess['id'] ?>"><?php echo $subprocess['sub_process_name'] ?></a></li>
+                     <?php } ?>
+               <?php }
+                  }
+                } ?>
+                 </ul>
+           </div>
+         </div>
+       </li>
+
+     <?php elseif ($_SESSION['userInfo']['user_role'] === '20') : ?>
+       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+         <div class="sidebar-brand-icon rotate-n-0">
+           <i class="fas fa-user"></i>
+         </div>
+         <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['userInfo']['username']; ?></div>
+       </a>
+       <!-- Divider -->
+       <hr class="sidebar-divider my-0">
+       <!-- Nav Item - Dashboard -->
+
+       <!-- Divider -->
+       <hr class="sidebar-divider">
+
+       <li class="nav-item">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusers" aria-expanded="true" aria-controls="collapseusers">
+           <i class="fa fa-user" aria-hidden="true"></i>
+           <span>List Process</span>
+         </a>
+         <?php $process = $this->MainModel->selectAll('tbl_process'); ?>
+         <div id="collapseusers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+           <div class="bg-white py-2 collapse-inner rounded">
+             <h6 class="collapse-header">List Process</h6>
+             <?php if (!empty($process)) {
+                foreach ($process as $process) { ?>
+                 <a class="collapse-item" href="#"><?php echo $process['process_name'] ?></a>
+                 <ul>
+                   <?php
+                    $sub_process = $this->MainModel->selectAllFromWhere('tbl_sub_process', array('process_id' => $process['id']));
+
+                    if (!empty($sub_process)) {
+                      foreach ($sub_process as $subprocess) { ?>
+                       <li class="nav-item"><a href="<?php echo base_url('Auditapp/work_steps/') . $subprocess['id'] ?>"><?php echo $subprocess['sub_process_name'] ?></a></li>
+                     <?php } ?>
+               <?php }
+                  }
+                } ?>
+                 </ul>
+           </div>
+         </div>
+       </li>
      <?php endif; ?>
-
-
      <!-- Divider -->
      <hr class="sidebar-divider d-none d-md-block">
 

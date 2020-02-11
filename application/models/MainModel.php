@@ -166,9 +166,9 @@ class MainModel extends ci_model
         $this->db->where($condition);
         $query = $this->db->update($table, $data);
         if ($query != null) {
-            return 'FALSE';
+            return true;
         } else {
-            return 'TRUE';
+            return false;
         }
     }
 
@@ -190,9 +190,9 @@ class MainModel extends ci_model
 
     //delete records by using 
 
-    public function delete($tableName = null, $column_name = null, $id = null)
+    public function delete($tableName = null, $id = null)
     {
-        $query =  $this->db->where($column_name, $id);
+        $query =  $this->db->where($id);
         $this->db->delete($tableName);
         if ($query != null) {
             return 'FALSE';

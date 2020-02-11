@@ -82,4 +82,60 @@ function populate_cities(obj) {
     }
     return html;
 }
- 
+
+
+$('#client').change(function () {
+
+    let client = $(this).children("option:selected").attr('data');
+    $('#company-id').val(client);
+});
+$('#role').change(function () {
+    let client = $(this).children("option:selected").attr('data');
+    $('#user-role').val(client);
+
+});
+
+let processArr = [];
+let subProcessArr = [];
+
+$('.sub_process').on('change', function () {
+    // alert($('.sub_process').val());
+    if ($(this).prop('checked')) {
+
+        let subProcessId = $(this).attr('data-sub-id');
+        subProcessArr.push(subProcessId);
+    } else {
+        subProcessId = $(this).attr('data-sub-id');
+        let subIndex = subProcessArr.indexOf(subProcessId);
+        subProcessArr.splice(subIndex, 1);
+    }
+
+});
+
+$('.main-process').on('change', function () {
+    if ($(this).prop('checked')) {
+        let processId = $(this).attr('data-id');
+        processArr.push(processId);
+    } else {
+        let processId = $(this).attr('data-id');
+        let processIndex = processArr.indexOf(processId);
+        processArr.splice(processIndex, 1);
+    }
+
+});
+
+$('.submit-services').on('click', function () {
+    let companyId = $('#company_id').val();
+    let formData = { id: companyId, process: processArr, subProcess: subProcessArr }
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + '/Auditapp/update_company',
+        data: formData,
+        success: function (data, success) {
+            // console.log(data);
+            window.location=baseUrl+"Auditapp/company";
+        }
+
+    });
+});
+

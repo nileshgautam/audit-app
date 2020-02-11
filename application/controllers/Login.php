@@ -39,12 +39,14 @@ class Login extends CI_Controller
                 $id    = $data[0]['id'];
                 $name  = $data[0]['user_first_name'] . " " . $data[0]['user_last_name'];
                 $email = $data[0]['user_id'];
+                $company_id = $data[0]['user_client_id'];
                 $user_role = $data[0]['user_role'];
                 $sesdata = array(
                     'id'       =>  $id,
+                    'company' => $company_id,
                     'username'  => $name,
                     'email'     => $email,
-                    'user_role'     => $user_role,
+                    'user_role' => $user_role,
                     'logged_in' => TRUE
                 );
                 $this->session->set_userdata("userInfo", $sesdata);
@@ -52,9 +54,14 @@ class Login extends CI_Controller
                 // access login for admin
                 if ($user_role == "10") {
                     redirect('Auditapp/admin');
-                } 
-                elseif ($user_role == "20") {
-                    redirect('Auditapp/users');
+                } elseif ($user_role == "20") {
+                    redirect('Auditapp/auditor');
+                } elseif ($user_role == "30") {
+                    redirect('Auditapp/manager');
+                } elseif ($user_role == "40") {
+                    redirect('Auditapp/team_leader');
+                } elseif ($user_role == "50") {
+                    redirect('Auditapp/team_member');
                 }
             } else {
                 echo $this->session->set_flashdata('msg', "Username or Password is Incorrect");
