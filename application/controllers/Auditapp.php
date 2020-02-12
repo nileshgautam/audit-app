@@ -34,7 +34,6 @@ class Auditapp extends CI_Controller
     {
         $this->load->view('login/layout/header');
         $this->load->view('login/nav');
-        // $this->load->view('home_page');
         $this->load->view('login/layout/footer');
     }
 
@@ -337,11 +336,9 @@ class Auditapp extends CI_Controller
     function update_company()
     {
         if (!empty($_POST)) {
-            $process = json_encode($_POST['process']);
-            $subprocess = json_encode($_POST['subProcess']);
+            $process = $_POST['process'];
             $data = array(
-                'process' => $process,
-                'subprocess' => $subprocess
+                'process' => $process
             );
             $result = $this->MainModel->update_table('tbl_client_details', array('id' => $_POST['id']), $data);
             if ($result === true) {
@@ -357,6 +354,20 @@ class Auditapp extends CI_Controller
             // $this->session->set_flashdata('error', 'error occourd.');
             // redirect(__CLASS__ . '/company');
             echo "error occourd.";
+        }
+    }
+
+    public function sub_process($sub_id)
+
+    {
+        // print_r($sub_id);die;
+        if (!empty($sub_id)) {
+            
+            $data['subServices'] = $this->MainModel->selectAllbyMultipleId('tbl_sub_process', base64_decode($sub_id));
+            $this->load->view('login/layout/header');
+            $this->load->view('login/nav');
+            $this->load->view('template/subservices', $data);
+            $this->load->view('login/layout/footer');
         }
     }
 }

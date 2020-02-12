@@ -25,7 +25,6 @@ class Login extends CI_Controller
         $this->load->view('login/loginPage');
     }
 
-
     // validate user login by role
     function auth()
     {

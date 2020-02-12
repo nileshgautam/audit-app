@@ -95,38 +95,45 @@ $('#role').change(function () {
 
 });
 
-let processArr = [];
-let subProcessArr = [];
+let processArr = {};
+// let subProcessArr = [];
 
 $('.sub_process').on('change', function () {
     // alert($('.sub_process').val());
+    let subProcessId = $(this).attr('data-sub-id');
+    let ProcessId = $(this).attr('data-process-id');
     if ($(this).prop('checked')) {
-
-        let subProcessId = $(this).attr('data-sub-id');
-        subProcessArr.push(subProcessId);
+       // processArr[ProcessId]=[subProcessId, ...processArr[ProcessId]];
+       
+       processArr[ProcessId].push(subProcessId);
     } else {
-        subProcessId = $(this).attr('data-sub-id');
-        let subIndex = subProcessArr.indexOf(subProcessId);
-        subProcessArr.splice(subIndex, 1);
+       
+        let subIndex =  processArr[ProcessId].indexOf(subProcessId);
+        processArr[ProcessId].splice(subIndex, 1);
     }
-
+    console.log(processArr);
 });
 
 $('.main-process').on('change', function () {
+    let processId = $(this).attr('data-id');
     if ($(this).prop('checked')) {
-        let processId = $(this).attr('data-id');
-        processArr.push(processId);
+        processArr={[processId]:[] , ...processArr};
+
+        //processArr.push(processId);
     } else {
-        let processId = $(this).attr('data-id');
-        let processIndex = processArr.indexOf(processId);
-        processArr.splice(processIndex, 1);
+        delete processArr[processId];
+        
+        //let processIndex = processArr.indexOf(processId);
+        //processArr.splice(processIndex, 1);
     }
+    console.log(processArr);
 
 });
 
 $('.submit-services').on('click', function () {
     let companyId = $('#company_id').val();
-    let formData = { id: companyId, process: processArr, subProcess: subProcessArr }
+
+    let formData = { id: companyId, process: JSON.stringify(processArr)}
     $.ajax({
         type: 'POST',
         url: baseUrl + '/Auditapp/update_company',
@@ -139,3 +146,14 @@ $('.submit-services').on('click', function () {
     });
 });
 
+
+//For toogle on collapse
+function toggleIcon(e) {
+    $(e.target)
+        .prev('.card-header')
+        .find(".more-less")
+        .toggleClass('fa-angle-down fa-angle-up');
+}
+$('.card-header').on('hide.bs.collapse', toggleIcon);
+
+$('.card-header').on('show.bs.collapse', toggleIcon);

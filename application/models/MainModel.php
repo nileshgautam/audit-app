@@ -279,4 +279,11 @@ class MainModel extends ci_model
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }
+
+    public function selectAllbyMultipleId($table = null, $id=null)
+    {
+        $query = "SELECT * FROM $table WHERE id in ($id)";
+        $result = $this->db->query($query)->result_array();
+        return $this->db->affected_rows() ? $result : false;
+    }
 }

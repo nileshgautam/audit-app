@@ -12314,7 +12314,7 @@ a:focus {
     color: #3a3b45;
     text-decoration: none;
     border-radius: .35rem;
-    white-space: nowrap
+    font-size: 0.77rem;
 }
 
 .sidebar .nav-item .collapse .collapse-inner .collapse-item:hover,
