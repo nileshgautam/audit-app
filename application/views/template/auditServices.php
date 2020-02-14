@@ -1,3 +1,4 @@
+<div class="content-wrapper">
 <div class="container mt-30" style="align-self: auto">
 
   <div>
@@ -8,7 +9,7 @@
       <span><?php echo $_SESSION['company_data']['email']; ?></span>
     <?php } ?>
     <div class="mt-30">
-      <h6>Choose Services</h6>
+      <h4>Choose Process</h4>
     </div>
   </div>
 
@@ -36,7 +37,7 @@
               foreach ($subprocess as $sbprocess) {
             ?>
                 <ul>
-                  <li><?php echo $sbprocess['sub_process_name']; ?></label> <input type="checkbox" name="" data-sub-id="<?php echo $sbprocess['id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process"><label></li>
+                  <li><input type="checkbox" name="" data-sub-id="<?php echo $sbprocess['id'] ?>" data-process-id="<?php echo $sbprocess['process_id'] ?>" class="sub_process"><label><?php echo $sbprocess['sub_process_name']; ?></label> </li>
                 </ul>
 
             <?php }
@@ -52,4 +53,5 @@
     <input type="hidden" id="company_id" name="company_id" value="<?php echo $_SESSION['company_data']['company_id']; ?>">
     <button class="btn btn-primary submit-services" style="float:right; margin:5px;">Apply</button>
   </div>
+</div>
 </div>

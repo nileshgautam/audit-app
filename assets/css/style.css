@@ -54,11 +54,16 @@
 
 .process {
 display: flex;
-
-
 }
 
 .more-less {
     float: right;
     color: #212121;
+}
+
+.client-form{
+    /* width: 50%; */
+    margin-top: 50px;
+    margin-left: 20%;
+    margin-right: 0;
 }

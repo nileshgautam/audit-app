@@ -1,43 +1,47 @@
-<div class="bg-primary">
-  <div class="container">
-    <!-- Outer Row -->
-    <div class="row justify-content-center" style="margin-top:10%;">
-      <div class="col-xl-10 col-lg-12 col-md-9">
-        <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-              <div class="col-lg-6">
+<?php if ($this->session->flashdata('msg') != "") { ?>
+  <script>
+    showAlert("<?php echo $this->session->flashdata('msg'); ?>", 'danger');
+  </script>
+<?php } ?>
 
-                <div class="p-5">
-                  <div class="text-center">
-                    <?php if ($this->session->flashdata('msg') != "") { ?>
-                      <script>
-                        showAlert("<?php echo $this->session->flashdata('msg'); ?>", 'danger');
-                      </script>
-                    <?php } ?>
-                    <img class="h-25 " src="<?php echo base_url('assets/img/logoiso27001.png') ?>" alt="Logo" height="50px" width="100px">
-                    <h3 class="text-gray-900">Login</h3>
-                  </div>
-                  <form class="user" action="<?php echo base_url('Login/auth') ?>" method="post">
-                    <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="InputEmail" name="email" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                    </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control form-control-user" name="password" id="InputPassword" placeholder="Password">
-                    </div>
-                    <input type="submit" value="Log In" class="btn btn-primary btn-user btn-block">
-                  </form>
-                </div>
-              </div>
-            </div>
+<div class="conatiner">
+  <div class="box ">
+    <div class="box-header with-border" style="text-align:center">
+      <h3 class="box-title" >Login</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form class="form-horizontal" action="<?php echo base_url('Login/auth') ?>" method="post">
+      <div class="box-body">
+        <div class="form-group">
+          <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-10">
+            <input type="email" name="email" required class="form-control" id="inputEmail" placeholder="Email" autocomplete="off">
           </div>
         </div>
-
+        <div class="form-group">
+          <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-10">
+            <input type="password" required class="form-control" id="inputPassword" name='password' placeholder="Password">
+          </div>
+        </div>
+       
       </div>
-
-    </div>
-
+      <!-- /.box-body -->
+      <div class="box-footer">
+        <!-- <button type="submit" class="btn btn-default">Cancel</button> -->
+        <input type="submit" value="Log In" class="btn btn-info pull-right">
+        <!-- <button type="submit" class="btn btn-info pull-right">Sign in</button> -->
+      </div>
+      <!-- /.box-footer -->
+    </form>
   </div>
 </div>
+
+
+<style>
+.conatiner{
+width: 400px;
+margin: 149px 500px 75px 500px;
+}
+</style>

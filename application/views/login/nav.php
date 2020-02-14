@@ -11,7 +11,6 @@
          </div>
          <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['userInfo']['username']; ?></div>
        </a>
-
        <!-- Divider -->
        <hr class="sidebar-divider">
 
@@ -42,11 +41,11 @@
            <i class="fas fa-fw fa-table"></i>
            <span>Client List</span>
          </a>
-         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+         <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
            <div class="bg-white py-2 collapse-inner rounded">
              <h6 class="collapse-header">Client list</h6>
-             <a class="collapse-item" href="<?php echo base_url('Auditapp/company') ?>">Client list</a>
-             <a class="collapse-item" href="<?php echo base_url('Auditapp/user_tab') ?>">User list</a>
+             <a class="collapse-item" href="<?php echo base_url('Auditapp/company') ?>">Clients</a>
+             <a class="collapse-item" href="<?php echo base_url('Auditapp/user_tab') ?>">Users</a>
            </div>
          </div>
        </li>
@@ -94,7 +93,6 @@
            </div>
          </div>
        </li>
-
      <?php elseif ($_SESSION['userInfo']['user_role'] === '30') : ?>
        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
          <div class="sidebar-brand-icon rotate-n-0">
@@ -261,7 +259,7 @@
            <li class="nav-item dropdown no-arrow">
 
              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['userInfo']['username'];; ?></span>
+               <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['userInfo']['username']; ?></span>
                <img class="img-profile rounded-circle" src="<?php echo base_url('assets/img/admin.png') ?>">
              </a>
              <!-- Dropdown - User Information -->

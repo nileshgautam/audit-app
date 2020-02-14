@@ -6,7 +6,6 @@ class Auditapp extends CI_Controller
     function __construct()
     {
         parent::__construct();
-
         date_default_timezone_set("Asia/Kolkata"); //Set server date an time to Asia
         if (!isset($_SESSION['userInfo'])) {
             $this->session->sess_destroy();
@@ -16,85 +15,90 @@ class Auditapp extends CI_Controller
 
     public function admin()
     {
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
-        // $this->load->view('home_page');
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
+        $this->load->view('layout/index');
+        $this->load->view('layout/footer');
+    }
+
+    public function newtheme()
+    {
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
+        $this->load->view('layout/index');
+        $this->load->view('layout/footer');
     }
 
     public function auditor()
     {
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
-        // $this->load->view('home_page');
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
+        $this->load->view('layout/index');
+        $this->load->view('layout/footer');
     }
 
     public function manager()
     {
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
+        $this->load->view('layout/index');
+        $this->load->view('layout/footer');
     }
 
     public function team_leader()
     {
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
-        // $this->load->view('home_page');
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
+        $this->load->view('layout/index');
+        $this->load->view('layout/footer');
     }
 
     public function team_member()
     {
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
-        // $this->load->view('home_page');
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
+        $this->load->view('layout/index');
+        $this->load->view('layout/footer');
     }
 
     public function users()
     {
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
-        // $this->load->view('home_page');
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
+        $this->load->view('layout/index');
+        $this->load->view('layout/footer');
     }
 
     // function to load work steps according to process
     function work_steps($sub_process_id)
     {
-        // print_r($sub_process_id);
         $data['risk'] = $this->MainModel->selectAllFromWhere('tbl_risk', array('sub_process_id' => $sub_process_id), 'risk_name');
         $data['work_steps'] = $this->MainModel->selectAllFromWhere('tbl_work_steps', array('sub_process_id' => $sub_process_id), 'steps_name');
         $data['data_required'] = $this->MainModel->selectAllFromWhere('tbl_data_required', array('sub_process_id' => $sub_process_id), 'data_required');
-        // echo '<pre>';
-        // print_r($data);die;
-
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
         $this->load->view('template/workSteps', $data);
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/footer');
     }
 
     // function to load work steps according to process
     function choose_services()
     {
         $data['services'] = $this->MainModel->selectAll('tbl_process', 'process_name');
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
         $this->load->view('template/auditServices', $data);
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/footer');
     }
 
     // function to load company 
     public function company()
     {
         $data['client_list'] = $this->MainModel->selectAll('tbl_client_details', 'client_name');
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
         $this->load->view('template/company', $data);
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/footer');
     }
 
     // function to load company 
@@ -103,22 +107,20 @@ class Auditapp extends CI_Controller
         $data['client_list'] = $this->MainModel->selectAll('tbl_client_details', 'client_name');
         $data['country'] = $this->MainModel->selectAll('countries', 'name');
         $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
         $this->load->view('template/users', $data);
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/footer');
     }
 
     // function to load user table from database
     public function user_tab()
     {
         $data['users'] = $this->MainModel->selectAll('tbl_user', 'user_first_name');
-        //   $data['country'] = $this->MainModel->selectAll('countries', 'name');
-        //   $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
         $this->load->view('template/usertab', $data);
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/footer');
     }
 
     // function to load company 
@@ -126,10 +128,10 @@ class Auditapp extends CI_Controller
     {
         $data['country'] = $this->MainModel->selectAll('countries', 'name');
         $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
         $this->load->view('template/clientForm', $data);
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/footer');
     }
 
     // function to show state compnay view
@@ -138,8 +140,6 @@ class Auditapp extends CI_Controller
         // print_r($_POST);die;
         $id = $this->input->post('c_id');
         $data = $this->MainModel->selectAllFromWhere('states', array('country_id' => $id));
-        // echo "<pre>";
-        // print_r($data);die;
         $myjson = json_encode($data, true);
         echo $myjson;
     }
@@ -150,16 +150,12 @@ class Auditapp extends CI_Controller
 
         $id = $this->input->post('c_id');
         $data = $this->MainModel->selectAllFromWhere('cities', array('state_id' => $id));
-        // echo "<pre>";
-        // print_r($data);die;
         $myjson = json_encode($data, true);
         echo $myjson;
     }
 
     public function clientPost()
     {
-
-        // $data['roles'] = $this->MainModel->selectAll('role_status');
         $c_name = $this->input->post('client-name');
         $c_address = $this->input->post('address');
         $c_city = $this->input->post('city');
@@ -261,10 +257,11 @@ class Auditapp extends CI_Controller
         $data['client_list'] = $this->MainModel->selectAll('tbl_client_details', 'client_name');
         $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
         $data['user'] = $this->MainModel->selectAllFromWhere('tbl_user', array('id' => $id));
-        $this->load->view('login/layout/header');
-        $this->load->view('login/nav');
+
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
         $this->load->view('template/users', $data);
-        $this->load->view('login/layout/footer');
+        $this->load->view('layout/footer');
     }
     public function delete_user($id)
     {
@@ -360,14 +357,15 @@ class Auditapp extends CI_Controller
     public function sub_process($sub_id)
 
     {
-        // print_r($sub_id);die;
         if (!empty($sub_id)) {
-            
+           
             $data['subServices'] = $this->MainModel->selectAllbyMultipleId('tbl_sub_process', base64_decode($sub_id));
-            $this->load->view('login/layout/header');
-            $this->load->view('login/nav');
+
+            // $data['risk'] = $this->MainModel->selectAllFromWhere('tbl_risk', array('sub_process_id' => $subServices['id']));
+            $this->load->view('layout/header');
+            $this->load->view('layout/sidenav');
             $this->load->view('template/subservices', $data);
-            $this->load->view('login/layout/footer');
+            $this->load->view('layout/footer');
         }
     }
 }
