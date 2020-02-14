@@ -12,7 +12,6 @@
                     <div class="box box-default collapsed-box">
                         <div class="box-header with-border">
                             <h3 class="box-title"><?php echo $subServices['sub_process_name'] ?></h3>
-
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                                 </button>
@@ -47,14 +46,22 @@
 
                                                 </td>
                                                 <td>
+                                                    <table>
+                                                        
+
+                                                 
                                                     <?php
                                                     $work_steps = $this->MainModel->selectAllFromWhere('tbl_work_steps', array('sub_process_id' => $subServices['id']));
                                                     // print_r($risk);
                                                     if (isset($work_steps)) {
                                                         foreach ($work_steps as $work_steps) { ?>
-                                                            <?php echo $work_steps['steps_name'] ?>
+                                                              <tr>
+                                                            <td> <input type="checkbox"><?php echo $work_steps['steps_name'] ?></td>
+                                                            </tr>    
                                                     <?php }
                                                     } ?>
+                                                                                                                          
+                                                    </table>
                                                 </td>
                                                 <td><span class="badge bg-red">55%</span></td>
                                             </tr>
