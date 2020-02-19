@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2020 at 12:54 PM
+-- Generation Time: Feb 19, 2020 at 01:10 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.13
 
@@ -48389,6 +48389,77 @@ INSERT INTO `countries` (`id`, `sortname`, `name`, `phonecode`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `files`
+--
+
+CREATE TABLE `files` (
+  `id` int(11) NOT NULL,
+  `file_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uploaded_on` datetime NOT NULL,
+  `status` enum('1','0') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1' COMMENT '1=Active, 0=Inactive',
+  `client_id` int(11) NOT NULL,
+  `user_id_uploaded_by` int(11) NOT NULL,
+  `process_id` int(11) NOT NULL,
+  `sub_process_id` int(11) NOT NULL,
+  `work_steps_id` int(11) DEFAULT NULL,
+  `mandatory` tinyint(1) DEFAULT 0,
+  `remark` text COLLATE utf8_unicode_ci NOT NULL,
+  `mandatory_file_id` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `files`
+--
+
+INSERT INTO `files` (`id`, `file_name`, `uploaded_on`, `status`, `client_id`, `user_id_uploaded_by`, `process_id`, `sub_process_id`, `work_steps_id`, `mandatory`, `remark`, `mandatory_file_id`) VALUES
+(49, '11.jpg', '2020-02-18 07:36:45', '1', 29, 50, 1, 1, 4, 0, 'abcd', NULL),
+(50, '52.jpg', '2020-02-18 07:38:19', '1', 29, 50, 1, 1, 5, 0, 'asdfasdfasd', NULL),
+(51, '53.jpg', '2020-02-18 07:54:21', '1', 29, 50, 1, 1, NULL, 1, 'afsafdsdf', '1'),
+(52, '31.jpg', '2020-02-18 08:26:30', '1', 29, 50, 1, 1, NULL, 1, 'sdgasdfasd', '2'),
+(53, '63.jpg', '2020-02-18 08:26:46', '1', 29, 50, 1, 1, NULL, 1, '', '3'),
+(54, '54.jpg', '2020-02-18 08:27:53', '1', 29, 50, 2, 2, 1, 0, '', NULL),
+(55, '32.jpg', '2020-02-18 08:39:39', '1', 29, 50, 1, 1, NULL, 1, 'sdfsd', '1'),
+(56, '55.jpg', '2020-02-18 10:22:31', '1', 29, 50, 1, 1, 6, 0, 'sfsdfsd', NULL),
+(57, 'Android_and_ios.png', '2020-02-18 10:22:42', '1', 29, 50, 1, 1, 7, 0, 'asfsadf', NULL),
+(58, 'Android_and_ios1.png', '2020-02-18 10:22:42', '1', 29, 50, 1, 1, 7, 0, 'asfsadf', NULL),
+(59, 'Android_and_ios2.png', '2020-02-18 10:22:55', '1', 29, 50, 1, 1, NULL, 1, 'asfasdf', '2'),
+(60, '64.jpg', '2020-02-18 10:23:16', '1', 29, 50, 1, 1, NULL, 1, 'asfsd', '2'),
+(61, 'Android_and_ios3.png', '2020-02-18 10:25:26', '1', 29, 50, 2, 2, 2, 0, 'dfgsdfg', NULL),
+(62, '65.jpg', '2020-02-18 10:25:38', '1', 29, 50, 2, 2, 3, 0, 'sdfgsfdgsfd', NULL),
+(63, 'ananxes3.xlsx', '2020-02-18 10:26:32', '1', 29, 50, 1, 1, NULL, 1, 'sdfgsfgd', '4'),
+(64, 'ananxes4.xlsx', '2020-02-18 10:27:07', '1', 29, 50, 2, 2, NULL, 1, 'sdfgsdfgsdf', '5'),
+(65, 'ananxes5.xlsx', '2020-02-18 10:30:32', '1', 29, 50, 1, 1, NULL, 1, 'xvbzbz', '4'),
+(66, 'ananxes6.xlsx', '2020-02-18 10:30:32', '1', 29, 50, 1, 1, NULL, 1, 'xvbzbz', '4'),
+(67, 'dowload.csv', '2020-02-18 12:50:45', '1', 29, 30, 1, 1, 8, 0, '', NULL),
+(68, 'ananxes7.xlsx', '2020-02-18 13:12:39', '1', 29, 50, 1, 1, 21, 0, 'sdfasdfasd', NULL),
+(69, 'ananxes8.xlsx', '2020-02-18 13:24:11', '1', 29, 50, 1, 1, 20, 0, 'testing ', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sample_group`
+--
+
+CREATE TABLE `sample_group` (
+  `ID` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sample_group`
+--
+
+INSERT INTO `sample_group` (`ID`, `name`, `country`) VALUES
+(1, 'Yogesh', 'merrut'),
+(2, 'Yatharth', 'Delhi'),
+(3, 'Yogesh', 'Delhi'),
+(4, 'Yatharth', 'Delhi'),
+(5, 'Yogesh', 'Delhi');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `states`
 --
 
@@ -52525,6 +52596,20 @@ INSERT INTO `status` (`id`, `status`, `status_code`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subprocess_ckeck_file`
+--
+
+CREATE TABLE `subprocess_ckeck_file` (
+  `id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `work_steps_status` text NOT NULL,
+  `subprocess_id` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_client_details`
 --
 
@@ -52540,19 +52625,43 @@ CREATE TABLE `tbl_client_details` (
   `email` varchar(50) NOT NULL,
   `process` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `subprocess` text NOT NULL,
-  `gst_number` varchar(50) NOT NULL
+  `gst_number` varchar(50) NOT NULL,
+  `high` int(11) DEFAULT 0,
+  `medium` int(11) DEFAULT 0,
+  `low` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_client_details`
 --
 
-INSERT INTO `tbl_client_details` (`id`, `client_name`, `address`, `city`, `state`, `country`, `zip_pin_code`, `contact_no`, `email`, `process`, `date`, `subprocess`, `gst_number`) VALUES
-(10, 'pspls', 'noida', 'Noida', 'Uttar Pradesh', 'India', '201301', '789456231', 'plspl@plspl.com', '[{\"3\":\"7\",\"4\":\"8\",\"5\":\"9\",\"6\":\"10\",\"services_type\":\"1\"}]', '2020-02-08 15:07:30', '[{\"6\":\"A11\",\"7\":\"A12\",\"8\":\"A13\",\"9\":\"A14\",\"10\":\"A15\",\"11\":\"A16\",\"12\":\"A17\",\"13\":\"A18\",\"services_type\":\"2\"}]', '789456132vd'),
-(23, 'Gennext it', 'Noida', 'Noida', 'Uttar Pradesh', 'India', '123', '123', 'gennextit@g.com', '{\"1\":[\"1\"]}', '2020-02-12 06:07:30', 'null', '123'),
-(25, 'cline1', 'address', 'Select City', 'Sector claimed by Australia', 'Antarctica', '123', '123', 'na@na.com', '{\"1\":[\"1\",\"2\"],\"2\":[]}', '2020-02-12 06:44:38', '', '123456'),
-(26, 'client 2', 'Delhi', 'New Delhi', 'Delhi', 'India', '201301', '123456', 'client1@gmail.com', '{\"1\":[\"1\"]}', '2020-02-12 11:39:17', '', '123456');
+INSERT INTO `tbl_client_details` (`id`, `client_name`, `address`, `city`, `state`, `country`, `zip_pin_code`, `contact_no`, `email`, `process`, `date`, `gst_number`, `high`, `medium`, `low`) VALUES
+(23, 'Gennext it', 'Noida', 'Noida', 'Uttar Pradesh', 'India', '123', '123', 'gennextit@g.com', '{\"1\":[\"1\"],\"2\":[\"1\"],\"3\":[\"1\"]}', '2020-02-12 06:07:30', '123', 0, 0, 0),
+(29, 'Client1', 'noida', 'Noida', 'Uttar Pradesh', 'India', '123', '123456', 'client1@gmail.com', '{\"1\":[\"1\",\"2\"]}', '2020-02-14 09:01:19', '7894652130', 0, 0, 0),
+(30, 'client2', 'xxx', 'Caulfield', 'Caulfield', 'Australia', '123456', '123456', 'client2@gmail.com', '', '2020-02-14 10:21:46', '789456', 0, 0, 0),
+(31, 'AdwardInfotech', 'XXXX', 'Select City', 'Select State', 'Select Country', '123456', '123456', 'AdwardInfotech@gmail.com', '{\"1\":[\"1\"],\"2\":[\"1\"]}', '2020-02-15 07:14:56', '123455677', 0, 0, 0),
+(32, 'hippoInfoTech', 'hippoInfoTech', 'Awlaf', 'Adrar', 'Algeria', 'hippoInfoTech', 'hippoInfoTech', 'hippoInfoTech@gmail.com', '{\"1\":[\"1\"],\"3\":[],\"4\":[]}', '2020-02-15 07:30:08', 'hippoInfoTech', 0, 0, 0),
+(33, 'clienttest', 'adfsdfsd', 'Select City', 'Saint Paul', 'Antigua And Barbuda', '123', '123', 'client@email.com', '{\"1\":[\"1\"],\"2\":[\"1\",\"2\"],\"3\":[\"1\",\"2\",\"3\"]}', '2020-02-15 07:36:13', 'clienttest', 0, 0, 0),
+(34, 'client1123', 'client1123', 'Encamp', 'Encamp', 'Andorra', 'client1123', 'client1123', 'client1123@gmail.com', '{\"1\":[\"1\"],\"2\":[\"1\",\"2\"],\"3\":[\"1\",\"2\",\"3\"]}', '2020-02-15 07:46:12', 'client1123', 0, 0, 0),
+(35, 'client11231', 'client11231', 'Encamp', 'Encamp', 'Andorra', 'client11231', 'client11231', 'client11231@gmail.com', '{\"1\":[\"1\"]}', '2020-02-15 07:47:13', 'client11231', 0, 0, 0),
+(36, 'tast12', 'tast12', 'Berat', 'Berat', 'Albania', 'bcbccbcbcb', 'xxvxxcbcvb', 'tast12@gmail.com', '{\"1\":[\"2\"],\"2\":[\"1\",\"2\"],\"3\":[\"1\",\"2\",\"3\"]}', '2020-02-15 07:48:30', 'tast12', 0, 0, 0),
+(37, 'ClientSample', 'ClientSample', 'Alao', 'Eastern', 'American Samoa', 'ClientSample', 'ClientSample', 'ClientSample@gmail.com', '', '2020-02-17 04:53:50', 'ClientSample', 0, 0, 0),
+(38, 'adaaaaasfsf', 'fdsffsd', 'Andarab', 'Hilmand', 'Afghanistan', 'fwefwfwf', 'dwfwfwefe', 'sfssff@gmail.com', '{\"1\":[\"1\",\"2\"],\"2\":[\"1\",\"2\"],\"3\":[\"3\",\"0\"],\"P200217005\":[\"SP200217013\"]}', '2020-02-17 11:35:21', 'aaffffsaffsddf', 0, 0, 0),
+(39, 'dsdsdsd', 'dsdsd', 'Bulqize', 'Bulqize', 'Albania', 'p[\'p[p[p[p[\'pp\'', 'olopp\'p[\'p[', 'a@m.com', '{\"1\":[\"1\",\"2\"],\"2\":[\"2\",\"0\"],\"3\":[\"1\",\"0\"],\"P200217005\":[\"SP200217013\"]}', '2020-02-17 11:56:32', 'dsdssdsf', 0, 0, 0),
+(40, 'cvdfbdfbfb', 'thtyty', 'Bani Wanif', 'Bashshar', 'Algeria', 'hjmhjmhjmhjhjmhjmhj', 'hfyjgmgmj', 'hythyh@gmail.com', '{\"1\":[\"1\",\"2\"],\"2\":[\"1\",\"0\"],\"3\":[\"1\",\"2\"],\"P200217005\":[\"SP200217013\"]}', '2020-02-18 05:49:24', 'bfbfbfb', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_client_responce`
+--
+
+CREATE TABLE `tbl_client_responce` (
+  `id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `uploaded_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -52563,7 +52672,7 @@ INSERT INTO `tbl_client_details` (`id`, `client_name`, `address`, `city`, `state
 CREATE TABLE `tbl_data_required` (
   `id` int(11) NOT NULL,
   `data_required` text NOT NULL,
-  `sub_process_id` int(11) NOT NULL,
+  `sub_process_id` varchar(50) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -52572,11 +52681,28 @@ CREATE TABLE `tbl_data_required` (
 --
 
 INSERT INTO `tbl_data_required` (`id`, `data_required`, `sub_process_id`, `status`) VALUES
-(1, 'Vendor Master', 1, 0),
-(2, 'Vendor Master Change Log', 1, 0),
-(3, 'List of new vendors created / deleted / blocked along with relevant approvals and documentation ', 1, 0),
-(4, 'Approvals for change in details of vendor master', 1, 0),
-(5, 'Vendor appraisal / performance reports', 2, 0);
+(1, 'Vendor Master', '1', 0),
+(2, 'Vendor Master Change Log', '1', 0),
+(3, 'List of new vendors created / deleted / blocked along with relevant approvals and documentation ', '1', 0),
+(4, 'Approvals for change in details of vendor master', '1', 0),
+(5, 'Vendor appraisal / performance reports', '2', 0),
+(6, 'D1', '0', 0),
+(7, 'D2', '0', 0),
+(8, 'D3', '0', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_log`
+--
+
+CREATE TABLE `tbl_log` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `date` datetime NOT NULL,
+  `company_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -52588,6 +52714,9 @@ CREATE TABLE `tbl_process` (
   `id` int(11) NOT NULL,
   `process_name` text NOT NULL,
   `process_id` varchar(50) NOT NULL,
+  `high` int(11) DEFAULT 0,
+  `medium` int(11) DEFAULT 0,
+  `low` int(11) DEFAULT 0,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -52595,9 +52724,11 @@ CREATE TABLE `tbl_process` (
 -- Dumping data for table `tbl_process`
 --
 
-INSERT INTO `tbl_process` (`id`, `process_name`, `process_id`, `status`) VALUES
-(1, 'Procurement', '1', 0),
-(2, 'Inventory and Warehouse Management', '2', 0);
+INSERT INTO `tbl_process` (`id`, `process_name`, `process_id`, `high`, `medium`, `low`, `status`) VALUES
+(1, 'Procurement', '1', 5, 3, 2, 0),
+(3, 'p2', '2', 0, 0, 0, 0),
+(4, 'p3', '3', 0, 0, 0, 0),
+(5, 'P1', 'P200217005', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -52607,7 +52738,7 @@ INSERT INTO `tbl_process` (`id`, `process_name`, `process_id`, `status`) VALUES
 
 CREATE TABLE `tbl_risk` (
   `risk_id` int(11) NOT NULL,
-  `sub_process_id` int(11) NOT NULL,
+  `sub_process_id` varchar(50) NOT NULL,
   `risk_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -52616,9 +52747,12 @@ CREATE TABLE `tbl_risk` (
 --
 
 INSERT INTO `tbl_risk` (`risk_id`, `sub_process_id`, `risk_name`) VALUES
-(1, 1, 'Redundant vendors exist in VMF'),
-(2, 1, 'Duplicate Vendors exist in VMF'),
-(3, 2, 'vendors performance is not reviewed.');
+(1, '1', 'Redundant vendors exist in VMF'),
+(2, '1', 'Duplicate Vendors exist in VMF'),
+(3, '2', 'vendors performance is not reviewed.'),
+(4, '0', 'r1'),
+(5, '0', 'r2'),
+(6, '0', 'r3');
 
 -- --------------------------------------------------------
 
@@ -52638,7 +52772,6 @@ CREATE TABLE `tbl_role` (
 --
 
 INSERT INTO `tbl_role` (`id`, `role`, `role_id`, `status`) VALUES
-(1, 'SPOC', 10, 0),
 (2, 'Auditor', 20, 0),
 (3, 'Manager', 30, 0),
 (4, 'Team leader', 40, 0),
@@ -52652,9 +52785,9 @@ INSERT INTO `tbl_role` (`id`, `role`, `role_id`, `status`) VALUES
 
 CREATE TABLE `tbl_sub_process` (
   `id` int(11) NOT NULL,
-  `process_id` int(11) NOT NULL,
+  `sub_process_id` varchar(50) NOT NULL,
   `sub_process_name` text NOT NULL,
-  `sub_process_id` int(11) NOT NULL,
+  `process_id` varchar(50) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -52662,9 +52795,18 @@ CREATE TABLE `tbl_sub_process` (
 -- Dumping data for table `tbl_sub_process`
 --
 
-INSERT INTO `tbl_sub_process` (`id`, `process_id`, `sub_process_name`, `sub_process_id`, `status`) VALUES
-(1, 1, 'Vendor master maintenance', 1, 0),
-(2, 1, 'Vendor performance appraisal', 2, 0);
+INSERT INTO `tbl_sub_process` (`id`, `sub_process_id`, `sub_process_name`, `process_id`, `status`) VALUES
+(1, '1', 'Vendor master maintenance', '1', 0),
+(2, '2', 'Vendor performance appraisal', '1', 0),
+(5, '1', 'sp21', '2', 0),
+(6, '2', 'sp22', '2', 0),
+(7, '1', 'sp31', '3', 0),
+(8, '2', 'sp32', '3', 0),
+(9, '3', 'sp33', '3', 0),
+(10, '0', 'S1', '0', 0),
+(11, '0', 'S2', '3', 0),
+(12, '0', 'S3', '2', 0),
+(13, 'SP200217013', 'S1', 'P200217005', 0);
 
 -- --------------------------------------------------------
 
@@ -52695,10 +52837,9 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id`, `user_first_name`, `user_last_name`, `user_id`, `user_password`, `user_role`, `user_phone`, `user_address`, `user_country`, `user_state`, `user_city`, `user_email`, `user_client_id`, `role`, `client_name`) VALUES
-(1, 'GennextIT', 'Consultant & Management', 'gennext@gn.com', '123456', '10', '7894561230', '', '', '', '', 'gennext@gn.com', 0, 'Admin', 'Genenxt'),
-(5, 'Yatharth', 'Sharma', 'yatharth@gmail.com', '123', '30', '', '', '', '', '', 'yatharth@gmail.com', 25, 'Manager', 'cline1'),
-(8, 'Nilesh', 'Gautam', 'nilesh@gennextit.com', '123', '40', '', '', '', '', '', 'nilesh@gennextit.com', 25, 'Team leader', 'cline1'),
-(9, 'mohit', 'singh', 'mohit@gmail.com', '123', '40', '', '', '', '', '', 'mohit@gmail.com', 26, 'Team leader', 'client 2');
+(1, 'John', 'D\'souza', 'gennext@gn.com', '123456', '50', '7894561230', '', '', '', '', 'gennext@gn.com', 23, 'Team member', 'Gennext it'),
+(13, 'mohit', 'singh', 'mohit@gmail.com', '123', '50', '', '', '', '', '', 'mohit@gmail.com', 29, 'Team member', 'Client1'),
+(14, 'Nilesh', 'Gautam', 'as@gmail.com', '123456', '30', '', '', '', '', '', 'as@gmail.com', 29, 'Manager', 'Client1');
 
 -- --------------------------------------------------------
 
@@ -52708,8 +52849,9 @@ INSERT INTO `tbl_user` (`id`, `user_first_name`, `user_last_name`, `user_id`, `u
 
 CREATE TABLE `tbl_work_steps` (
   `work_seteps_id` int(11) NOT NULL,
-  `sub_process_id` int(11) NOT NULL,
+  `sub_process_id` varchar(50) NOT NULL,
   `steps_name` text NOT NULL,
+  `mandatory_status` varchar(5) DEFAULT 'NM',
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -52717,55 +52859,25 @@ CREATE TABLE `tbl_work_steps` (
 -- Dumping data for table `tbl_work_steps`
 --
 
-INSERT INTO `tbl_work_steps` (`work_seteps_id`, `sub_process_id`, `steps_name`, `status`) VALUES
-(1, 2, 'Check if the company has rolled out vendor appraisal policies and procedures ', 0),
-(2, 2, 'Check if the policies are being implemented for the appraisal ', 0),
-(3, 2, 'A formal appraisal policy should be implemented for the critical vendors especially', 0),
-(4, 1, 'Obtain an overview of process for updating and maintenance f the vendors ', 0),
-(5, 1, 'Review compliance with procedures for updating amendments to vendor master', 0),
-(6, 1, 'At the time of vendor creation, the accounts personnel should check if the vendor already exists in the vendor master.', 0),
-(7, 1, 'A review if the duplicate/ redundant vendors codes in the and the vendor master should be done regularly. ', 0),
-(8, 1, 'Understand the process followed by the company for identifying the redundant vendor codes and deactivating them', 0),
-(9, 1, 'Identify vendors with no transaction in the past one year-these will be the redundant vendors.', 0),
-(10, 1, 'check if the redundant vendors have been deactivated or not.', 0),
-(11, 1, 'Pay particular attention to the vendors creation data - creating of a new duplicate code indicates that duplicates is an ongoing process issues rather than a data clean up issue.', 0),
-(20, 1, 'Identify the duplicate vendors (using basis like common PAN no, address, etc.)', 0),
-(21, 1, 'For a sample, check weather the details are updated correctly in the master from the vendor registration forms, especially for important details like PAN, bank details service tax registration number, payment terms.', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `f_name` varchar(50) DEFAULT NULL,
-  `l_name` varchar(50) DEFAULT NULL,
-  `email_id` varchar(50) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
-  `date_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `contact_no` varchar(15) NOT NULL,
-  `user_role` text NOT NULL,
-  `company_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `f_name`, `l_name`, `email_id`, `password`, `date_time`, `contact_no`, `user_role`, `company_id`) VALUES
-(1, 'Gennextit', 'Pvt. Ltd.', 'admin@gmail.com', '123456', '2019-12-10 16:46:18', '123456', '1', 2),
-(2, 'Nilesh', 'Gautam', 'nilesh@gmail.com', '123456', '2019-12-13 15:30:34', '', '0', 1),
-(3, 'Raghav', 'singh', 'raghv@gmal.com', '123456', '2019-12-13 15:41:00', '', '0', 3),
-(4, 'Rohit', 'sharma', 'na@na.com', '1234', '2019-12-13 15:42:24', '', '0', 1),
-(5, 'Fname', 'test_user', 'asdf@na.com', '123456', '2019-12-13 15:45:42', '', '0', 1),
-(6, 'Roshani', 'Bajaj', 'aa@na.com', '123456', '2019-12-16 16:19:26', '', '0', 4),
-(7, 'Rohan', 'Sharma', 'rohan@gmail.com', NULL, '2019-12-18 17:57:46', '', '0', 0),
-(8, 'Rahul', 'Roy', 'rahul@gmail.com', NULL, '2019-12-18 18:06:30', '123456', '0', 6),
-(9, 'Nitin', 'Singh', 'nitin@gmail.com', NULL, '2019-12-18 18:20:18', '123456789', 'manager', 6),
-(10, 'user1', 'user lastname', 'user1@gmail.com', NULL, '2019-12-19 11:36:04', '123456', 'admin', 7),
-(11, 'user2', 'lastname User2', 'user2@gmail.com', NULL, '2019-12-19 11:37:36', '456789', 'co-admin', 7);
+INSERT INTO `tbl_work_steps` (`work_seteps_id`, `sub_process_id`, `steps_name`, `mandatory_status`, `status`) VALUES
+(1, '2', 'Check if the company has rolled out vendor appraisal policies and procedures ', 'NM', 0),
+(2, '2', 'Check if the policies are being implemented for the appraisal ', 'NM', 0),
+(3, '2', 'A formal appraisal policy should be implemented for the critical vendors especially', 'NM', 0),
+(4, '1', 'Obtain an overview of process for updating and maintenance of the vendors ', 'NM', 0),
+(5, '1', 'Review compliance with procedures for updating amendments to vendor master', 'NM', 0),
+(6, '1', 'At the time of vendor creation, the accounts personnel should check if the vendor already exists in the vendor master.', 'NM', 0),
+(7, '1', 'A review if the duplicate/ redundant vendors codes in the and the vendor master should be done regularly. ', 'NM', 0),
+(8, '1', 'Understand the process followed by the company for identifying the redundant vendor codes and deactivating them', 'NM', 0),
+(9, '1', 'Identify vendors with no transaction in the past one year-these will be the redundant vendors.', 'NM', 0),
+(10, '1', 'check if the redundant vendors have been deactivated or not.', 'NM', 0),
+(11, '1', 'Pay particular attention to the vendors creation data - creating of a new duplicate code indicates that duplicates is an ongoing process issues rather than a data clean up issue.', 'NM', 0),
+(20, '1', 'Identify the duplicate vendors (using basis like common PAN no, address, etc.)', 'NM', 0),
+(21, '1', 'For a sample, check weather the details are updated correctly in the master from the vendor registration forms, especially for important details like PAN, bank details service tax registration number, payment terms.', 'NM', 0),
+(22, '0', 'wsp1', 'NM', 0),
+(23, '0', 'wsp2', 'NM', 0),
+(24, '0', 'wsp3', 'NM', 0),
+(25, '1', 'Vendor Master', 'M', 0),
+(26, '1', 'Vendor Master Change Log', 'M', 0);
 
 --
 -- Indexes for dumped tables
@@ -52797,6 +52909,18 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `files`
+--
+ALTER TABLE `files`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sample_group`
+--
+ALTER TABLE `sample_group`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `states`
 --
 ALTER TABLE `states`
@@ -52809,6 +52933,12 @@ ALTER TABLE `status`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `subprocess_ckeck_file`
+--
+ALTER TABLE `subprocess_ckeck_file`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_client_details`
 --
 ALTER TABLE `tbl_client_details`
@@ -52816,9 +52946,21 @@ ALTER TABLE `tbl_client_details`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `tbl_client_responce`
+--
+ALTER TABLE `tbl_client_responce`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_data_required`
 --
 ALTER TABLE `tbl_data_required`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_log`
+--
+ALTER TABLE `tbl_log`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -52858,12 +53000,6 @@ ALTER TABLE `tbl_work_steps`
   ADD PRIMARY KEY (`work_seteps_id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -52892,6 +53028,18 @@ ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
+-- AUTO_INCREMENT for table `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+
+--
+-- AUTO_INCREMENT for table `sample_group`
+--
+ALTER TABLE `sample_group`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `states`
 --
 ALTER TABLE `states`
@@ -52904,28 +53052,46 @@ ALTER TABLE `status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `subprocess_ckeck_file`
+--
+ALTER TABLE `subprocess_ckeck_file`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_client_details`
 --
 ALTER TABLE `tbl_client_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT for table `tbl_client_responce`
+--
+ALTER TABLE `tbl_client_responce`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_data_required`
 --
 ALTER TABLE `tbl_data_required`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tbl_log`
+--
+ALTER TABLE `tbl_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_process`
 --
 ALTER TABLE `tbl_process`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_risk`
 --
 ALTER TABLE `tbl_risk`
-  MODIFY `risk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `risk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_role`
@@ -52937,25 +53103,19 @@ ALTER TABLE `tbl_role`
 -- AUTO_INCREMENT for table `tbl_sub_process`
 --
 ALTER TABLE `tbl_sub_process`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_work_steps`
 --
 ALTER TABLE `tbl_work_steps`
-  MODIFY `work_seteps_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `work_seteps_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

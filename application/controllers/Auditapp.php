@@ -1,6 +1,49 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+class Filter
+{
+    private $colName;
+    private $searchValue;
 
+    function __construct($colName, $searchValue)
+    {
+        $this->searchValue = $searchValue;
+        $this->colName = $colName;
+    }
+
+    function filter_callback_array($data)
+    {
+        $result = false;
+        if (is_array($this->colName) && is_array($this->searchValue)) {
+
+
+            $colcount = count($this->colName);
+            $valcount = count($this->searchValue);
+            if ($colcount == $valcount) {
+                for ($i = 0; $i < $colcount; $i++) {
+                    $result = (strtolower(trim($data[$this->colName[$i]])) == strtolower(trim($this->searchValue[$i])));
+                    if (!$result) {
+                        break;
+                    }
+                }
+            }
+        }
+        return $result;
+    }
+
+
+    // function filter_callback($data)
+    // {
+    // 	//print_r($data);
+    // 	return (strtolower(trim($data[$this->colName])) == strtolower(trim($this->searchValue)));
+    // }
+
+
+    // function first_char_callback($data)
+    // {
+    // 	return (strtolower(trim($data[$this->colName]))[0] == strtolower(trim($this->searchValue)));
+    // }
+}
 class Auditapp extends CI_Controller
 {
     function __construct()
@@ -134,6 +177,62 @@ class Auditapp extends CI_Controller
         $this->load->view('layout/footer');
     }
 
+    // Edit client
+    public function edit_client($id)
+    {
+        $id = base64_decode($id);
+        $data['country'] = $this->MainModel->selectAll('countries', 'name');
+        $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
+        $data['client_details'] = $this->MainModel->selectAllFromWhere('tbl_client_details', array('id' => $id));
+        $c_pro_id = json_decode($data['client_details'][0]['process'], true);
+        $allProcess = $this->MainModel->getAllProcessWithSubprocess();
+        $data['services'] = $this->MainModel->selectAll('tbl_process', 'process_name');
+        //Filtering subprocess id's for fetching data
+        // $cSelectPro = []; //Processes which are selected by client
+        // foreach ($c_pro_id as $key => $value) {
+        //     foreach ($value as $key1 => $value1) {
+        //         $cSelectPro[] = $this->MainModel->getProcessWithSubprocess($key, $value1);
+        //     }
+        // }
+
+        // $pro = []; //serialized array of client selected processes for difference
+        // for ($i = 0; $i < count($cSelectPro); $i++) {
+        //     array_push($pro, $cSelectPro[$i][0]);
+        // }
+
+
+        // // Compare all values by a json_encode
+        // $diff = array_diff(array_map('json_encode', $allProcess), array_map('json_encode', $pro));
+
+        // $cUselectPro = []; // Processes which are not selected by client
+        // foreach ($diff as $key => $value) {
+        //     $cUselectPro[] = json_decode($diff[$key], true);
+        // }
+
+        $sGroupedArray = []; // Filtering Selected process Array for grouping process with subprocesses
+        foreach ($allProcess as $key => $value) {
+            $sGroupedArray[] = array_filter($allProcess, array(new Filter(['process_name'], [$allProcess[$key]['process_name']]), "filter_callback_array"));
+        }
+        $cSelectetGroupedPro = array_map("unserialize", array_unique(array_map("serialize", $sGroupedArray)));
+
+        // $usGroupedArray = []; // Filtering UnSelected process Array for grouping process with subprocesses
+        // foreach ($cUselectPro as $key => $value) {        
+        // $usGroupedArray[] = array_filter($cUselectPro, array(new Filter(['process_name'], [$cUselectPro[$key]['process_name']]), "filter_callback_array"));
+        // }
+        // $cUselectetGroupedPro = array_map("unserialize", array_unique(array_map("serialize", $usGroupedArray)));
+
+
+        //    $data['selectedProcess'] = $cSelectetGroupedPro;
+        //    $data['unselectedProcess'] = $cUselectetGroupedPro;
+        $data['id'] = $c_pro_id;
+        // $data['allProcess'] = $cSelectetGroupedPro;
+        // die;
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidenav');
+        $this->load->view('template/clientForm', $data);
+        $this->load->view('layout/footer');
+    }
+
     // function to show state compnay view
     public function select_state()
     {
@@ -156,6 +255,8 @@ class Auditapp extends CI_Controller
 
     public function clientPost()
     {
+        // print_r($_POST);
+        // die;
         $c_name = $this->input->post('client-name');
         $c_address = $this->input->post('address');
         $c_city = $this->input->post('city');
@@ -207,6 +308,42 @@ class Auditapp extends CI_Controller
             }
         }
         redirect(__CLASS__ . '/client_registration_form');
+    }
+
+    public function saveEditedClient()
+    {
+        // print_r($_POST);die;      
+
+        if (isset($_POST)) {
+            $insert = array(
+                'client_name' => $_POST['client-name'],
+                'address' => $_POST['address'],
+                'city' => $_POST['city'],
+                'state' => $_POST['state'],
+                'country' => $_POST['country'],
+                'zip_pin_code' => $_POST['zip'],
+                'contact_no' => $_POST['mobile-number'],
+                'email' => $_POST['email'],
+                'gst_number' => $_POST['gst-number'],
+                'process' => $_POST['process']
+            );
+            $res = $this->MainModel->update_table('tbl_client_details', array('id' => $_POST['client_id']), $insert);
+            if (!empty($res)) {
+                $this->session->set_flashdata("success", "Client Successfully Updated.");
+
+                $company_data = array(
+                    'company_name' => $_POST['client-name'],
+                    'email' => $_POST['email'],
+                    'company_id' => $_POST['client_id']
+                );
+
+                $this->session->set_userdata("company_data", $company_data);
+                redirect(base_url(__CLASS__ . '/company'));
+            }
+        } else {
+            $this->session->set_flashdata("error", "System Error Contact to IT.");
+        }
+        redirect(__CLASS__ . '/company');
     }
 
     function user_post()
@@ -277,25 +414,7 @@ class Auditapp extends CI_Controller
     // function to populate dashboard for all the company
     public function comp_dashboard($id)
     {
-        $id;
-        die;
-        // // extratcting question data from database by company id
-        // $data1 = $this->MainModel->selectAllFromWhere('company_responce', array('company_id' => $id, 'question_type' => 'ISO'));
-        // $data = $this->MainModel->selectAllFromWhere('company_responce', array('company_id' => $id, 'question_type' => 'Annex'));
-        // // $atotalquestion = 114;
-        // $iso = $this->count_Status($data1);
-        // $annexe = $this->count_Status($data);
-        // $result1 = $this->count_Status_per($iso);
-        // $result2 = $this->count_Status_per($annexe);
-        // // echo"<pre>";
-        // // print_r($result1);
-        // // print_r($result2);
-        // $resultdata['iso'] = $result1;
-        // $resultdata['annexe'] = $result2;
 
-        // print_r($resultdata);
-        // print_r($result2);
-        // die;
         $this->load->view('common_view/header');
         $this->load->view('common_view/nav');
         // $this->load->view('common_view/comp_dashboard', $resultdata);
@@ -304,10 +423,7 @@ class Auditapp extends CI_Controller
 
     function user_editpost()
     {
-        // echo '<pre>';
-        // print_r($_POST);
-        // die;
-        // if(isset($_POST))
+
         $data = array(
             'user_first_name' => $this->input->post('first-name'),
             'user_last_name' => $this->input->post('last-name'),
@@ -355,17 +471,42 @@ class Auditapp extends CI_Controller
     }
 
     public function sub_process($sub_id)
-
     {
         if (!empty($sub_id)) {
-           
-            $data['subServices'] = $this->MainModel->selectAllbyMultipleId('tbl_sub_process', base64_decode($sub_id));
-
-            // $data['risk'] = $this->MainModel->selectAllFromWhere('tbl_risk', array('sub_process_id' => $subServices['id']));
+            $id = json_decode(base64_decode($sub_id), true);
+            $data['subProcess'] = $this->MainModel->selectAllProcessAndSubprocess('tbl_sub_process', $id['p_id'], $id['sp_id']);
             $this->load->view('layout/header');
             $this->load->view('layout/sidenav');
             $this->load->view('template/subservices', $data);
             $this->load->view('layout/footer');
         }
+    }
+
+    //manager View
+    public function manager_process($sub_id)
+    {
+        if (!empty($sub_id)) {
+            $id = json_decode(base64_decode($sub_id), true);
+            $data['subProcess'] = $this->MainModel->selectAllProcessAndSubprocess('tbl_sub_process', $id['p_id'], $id['sp_id']);
+            $data['p_id'] = $id['p_id'];
+            $this->load->view('layout/header');
+            $this->load->view('layout/sidenav');
+            $this->load->view('template/manager_view', $data);
+            $this->load->view('layout/footer');
+        }
+    }
+
+    // function to show uploaded mandatory file 
+    public function mandatory_file()
+    {
+        $data = $this->MainModel->selectAllWhere('files', array('mandatory_file_id' => $_POST['mandatorydataid'], 'client_id' => $_POST['companyid']));
+        echo $uploads_file = json_encode($data, true);
+    }
+
+// function to show uploaded work steps file 
+    public function worksteps_file()
+    {
+         $data = $this->MainModel->selectAllWhere('files', array('work_steps_id' => $_POST['workstepsid'], 'client_id' => $_POST['companyid']));
+        echo $uploads_file = json_encode($data, true);
     }
 }

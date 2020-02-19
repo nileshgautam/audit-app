@@ -1,0 +1,97 @@
+condition name,genes,uniqueid,ADAM190701054
+Vitamin A,BCO1,rs6564851,TT
+Vitamin B6,NBPF3,rs4654748,CC
+Vitamin B9,MTHFR,rs1801131,AA
+Vitamin B12,FUT2,rs602662,AG
+Vitamin C,SLC23A1,rs33972313,CC
+Vitamin D and Calcium,VDR,rs1544410,AG
+Vitamin D and Calcium,GC,rs2282679,AA
+Vitamin E,INTERGENIC,rs12272004,CC
+Vitamin K,VKORC1,rs9923231,CC
+Magnesium,MECOM,rs448378,AG
+Magnesium,BRWD1P2,rs7965584,AA
+Iron,TMPRSS6,rs855791,CC
+Folic Acid,MTHFR,rs1801133,TC
+Selenium,GPX1,rs1050450,CC
+Omega-3,FADS1,rs174547,TT
+Omega-3,FADS2,rs1535,AA
+Carbohydrate,PPARG,rs1801282,CC
+Saturated Fats,APOA2,rs5082,TT
+Mono Unsaturated Fats (MUFA),ADIPOQ,rs17366568,GG
+Poly Unsaturated Fats (PUFA),FADS1,rs174547,TT
+Lactose Intolerance,LCT,rs2322659,TC
+Caffeine Sensitivity,CYP1A2,rs762551,CC
+Salt Sensitivity,ACE,rs4343,AG
+Salt Sensitivity,AGT,rs699,TC
+Gluten Intolerance,HLADQ 2.2,rs7775228,TC
+Gluten Intolerance,HLADQ 2.5,rs2187668,GG
+BMI And Waist Circumfrence,FTO,rs9939609,AT
+Response to Strength/Resistance Training,INSIG2,rs7566605,GG
+Adernaline Response,ADRB2,rs1042713,GG
+Adernaline Response,ADRB2,rs1042714,GG
+Testosterone Response,SHBG,rs12150660,GG
+Testosterone Response,SHBG,rs6258,CC
+Fat Metabolism,ADRB2,rs1042714,GG
+HDL Cholestrol Response,LIPC,rs1800588,TC
+ACT3 (PP),ACE,rs4341,GC
+AGT (PP),AGT,rs699,TC
+PPARA (PP),PPARA,rs4253778,GG
+IL6 (PP),IL6,rs1800795,CC
+ACTN3 (PP),ACTN3,rs540874,TT
+NOS3 (PP),NOS3,rs2070744,TT
+ACE3 (EP),ACE,rs4341,GC
+PPARA (EP),PPARA,rs4253778,GG
+ADRB2 (EP),ADRB2,rs1042713,GG
+NRF2 (EP),NRF2,rs7181866,AG
+PPARGC1A (AC),PPARGC1A,rs8192678,AG
+VEGFA (AC),VEGFA,rs2010963,GG
+ADRB2 (AC),ADRB2,rs1042713,GG
+ADRB2 (AC),ADRB2,rs1042714,GG
+AKT1 (AC),AKT1,rs1130214,TT
+PPARD (ANC),PPARD,rs2016520,AG
+Injury Risk,IL6,rs1800795,CC
+Muscle Injury,ESR1,rs2234693,TT
+Recovery,CRP,rs1205,CC
+Achilles Tendinopathy Risk,MMP3,rs679620,GG
+Oxidative Stress (IR),SOD2,rs4880,TC
+Ligament Rupture Risk,COL1A1,rs1800012,GG
+Pre Disposition to Obesity,FTO,rs9939609,AT
+Pre Disposition to Obesity,PLIN,rs894160,GG
+Pre Disposition to Obesity,APOA2,rs5082,TT
+Response to Dieting,ADRB2,rs1042714,GG
+Adiponectin Levels,ADIPOQ,rs17366568,GG
+Waist Circumfrence Responses,PLIN,rs894160,GG
+Waist Circumfrence Responses,MC4R,rs17782313,TC
+Weight Regain Risk,FTO,rs9939609,AT
+Weight Regain Risk,PPARG,rs1801282,CC
+Cellulite Pre-Disposition,H1F1A,rs11549465,CC
+Cellulite Pre-Disposition,ACE,rs4343,AG
+FAT Storage,PPARG,rs1801282,CC
+Eating Behaviour Trait,ANKKI/DRD2,rs1800497,CC
+Sweet Perception,FGF21,rs838133,CC
+Bitter Taste Perception,TAS2R38(1),rs713598,GC
+Bitter Taste Perception,TAS2R38(2),rs1726866,TC
+Satiety,FTO,rs9939609,AT
+Snacking Behaviour,LEPR,rs2025804,TC
+Elevated LDL Cholestrol,APOE,rs4420638,AG
+Elevated Triglycerides,APOA5,rs662799,AA
+Higher Serum Triglycerides,GCKR,rs780094,AG
+Higher HDL Cholestrol,CETP,rs708272,TC
+Higher HDL Cholestrol,LIPC,rs1800588,TC
+Response to Paleo Diet,TCF7L2,rs7903146,CC
+Response to Mediterranean Diet,PPARG,rs1801282,CC
+Insulin Sensitivity,TCF7L2,rs7903146,CC
+Insulin Sensitivity,FTO,rs9939609,AT
+Metformin Response,ATM,rs11212617,CC
+Detoxification Phase 1,CYP1A1,rs4646422,GG
+Detoxification Phase 1,CYP1B1,rs1056836,CC
+Detoxification Phase 2,UGT1A1,rs4148323,GG
+Detoxification Phase 2,GSTP1,rs1695,AA
+Detoxification Phase 2,GSTA1,rs3957357,AG
+Detoxification Phase 2,NQO1,rs1800566,TT
+Detoxification Phase 2,COMT,rs4680,AA
+Detoxification Phase 2,NAT2,rs1799929,TC
+Detoxification Phase 2,PON1,rs662,AG
+Oxidative Stress,SOD2,rs4880,TC
+Oxidative Stress,GPX1,rs1050450,CC
+Oxidative Stress,NQO1,rs1800566,TT

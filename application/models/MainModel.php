@@ -280,9 +280,33 @@ class MainModel extends ci_model
         return $this->db->affected_rows() ? $result : false;
     }
 
-    public function selectAllbyMultipleId($table = null, $id=null)
+    public function selectAllProcessAndSubprocess($table = null, $p_id=null, $sp_id=null)
     {
-        $query = "SELECT * FROM $table WHERE id in ($id)";
+        $query = "SELECT * FROM $table WHERE sub_process_id in ($sp_id) AND process_id = $p_id";
+        $result = $this->db->query($query)->result_array();
+        return $this->db->affected_rows() ? $result : false;
+    }
+
+    public function selectAllbyMultipleId($table = null, $id=null, $col=null)
+    {
+        $query = "SELECT * FROM $table WHERE $col in ($id)";
+        $result = $this->db->query($query)->result_array();
+        return $this->db->affected_rows() ? $result : false;
+    }
+
+    public function getProcessWithSubprocess($p_id,$sp_id){
+        $query = "SELECT p.process_name,p.process_id,sp.sub_process_name,sp.sub_process_id
+                  FROM tbl_process p
+                  LEFT JOIN tbl_sub_process sp ON p.process_id = sp.process_id
+                  WHERE p.process_id in ($p_id) AND sp.sub_process_id IN ($sp_id)";
+        $result = $this->db->query($query)->result_array();
+        return $this->db->affected_rows() ? $result : false;
+    }
+    public function getAllProcessWithSubprocess(){
+        $query = "SELECT p.process_name,p.process_id,sp.sub_process_name,sp.sub_process_id
+                  FROM tbl_process p
+                  LEFT JOIN tbl_sub_process sp ON p.process_id = sp.process_id"
+                  ;
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;
     }

@@ -58,6 +58,7 @@
           <ul class="treeview-menu">
             <li><a class="" href="<?php echo base_url('Auditapp/company') ?>">Clients</a></li>
             <li><a class="" href="<?php echo base_url('Auditapp/user_tab') ?>">Users</a></li>
+            <li><a class="" href="<?php echo base_url('MainWebsite/upload_excel') ?>">Manage Master File</a></li>
           </ul>
         </li>
       <?php elseif ($_SESSION['userInfo']['user_role'] === '20') : ?>
@@ -81,7 +82,8 @@
             </span>
           </a>
           <?php
-          print_r(process_menu($_SESSION['userInfo']['company']));
+          $method = $this->router->fetch_method();          
+          print_r(process_menu($_SESSION['userInfo']['company'],$method));
           ?>
         </li>
       <?php elseif ($_SESSION['userInfo']['user_role'] === '40') : ?>
