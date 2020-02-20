@@ -1,4 +1,4 @@
-<?php $process = $this->MainModel->selectAll('tbl_process'); ?>
+<?php $process = $this->MainModel->selectAll('process_master'); ?>
 
 <header class="main-header">
   <!-- Logo -->
@@ -47,7 +47,7 @@
       </div>
     </div>
     <ul class="sidebar-menu" data-widget="tree">
-      <?php if ($_SESSION['userInfo']['user_role'] === '10') : ?>
+      <?php if ($_SESSION['userInfo']['user_role'] === 'Admin') : ?>
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>

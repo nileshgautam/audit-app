@@ -39,17 +39,17 @@ class Login extends CI_Controller
             $email    = $this->input->post('email');
             $password = $this->input->post('password');
             if (isset($email) && isset($password)) {
-                $validate = $this->MainModel->selectAllFromWhere('tbl_user', array('user_id' => $email, 'user_password' => $password));
+                $validate = $this->MainModel->selectAllFromWhere('users', array('email' => $email, 'password' => $password));
                 if (!empty($validate)) {
                     $data  = $validate;
                     $id    = $data[0]['id'];
-                    $name  = $data[0]['user_first_name'];
-                    $email = $data[0]['user_id'];
-                    $company_id = $data[0]['user_client_id'];
-                    $user_role = $data[0]['user_role'];
+                    $name  = $data[0]['first_name']." ".$data[0]['last_name'];
+                    $email = $data[0]['email'];
+                    // $company_id = $data[0]['user_client_id'];
+                    $user_role = $data[0]['role'];
                     $sesdata = array(
                         'id'       =>  $id,
-                        'company' => $company_id,
+                        // 'company' => $company_id,
                         'username'  => $name,
                         'email'     => $email,
                         'user_role' => $user_role,
@@ -58,7 +58,7 @@ class Login extends CI_Controller
                     $this->session->set_userdata("userInfo", $sesdata);
                     //print_r($level);
                     // access login for admin
-                    if ($user_role == "10") {
+                    if ($user_role == "Admin") {
                         redirect('Auditapp/admin');
                     } elseif ($user_role == "20") {
                         redirect('Auditapp/auditor');

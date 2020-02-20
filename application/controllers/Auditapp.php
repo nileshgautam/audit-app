@@ -30,19 +30,6 @@ class Filter
         }
         return $result;
     }
-
-
-    // function filter_callback($data)
-    // {
-    // 	//print_r($data);
-    // 	return (strtolower(trim($data[$this->colName])) == strtolower(trim($this->searchValue)));
-    // }
-
-
-    // function first_char_callback($data)
-    // {
-    // 	return (strtolower(trim($data[$this->colName]))[0] == strtolower(trim($this->searchValue)));
-    // }
 }
 class Auditapp extends CI_Controller
 {
@@ -137,7 +124,7 @@ class Auditapp extends CI_Controller
     // function to load company 
     public function company()
     {
-        $data['client_list'] = $this->MainModel->selectAll('tbl_client_details', 'client_name');
+        $data['client_list'] = $this->MainModel->selectAll('client_details', 'client_name');
         $this->load->view('layout/header');
         $this->load->view('layout/sidenav');
         $this->load->view('template/company', $data);
