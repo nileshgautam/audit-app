@@ -304,8 +304,8 @@ class MainModel extends ci_model
     }
     public function getAllProcessWithSubprocess(){
         $query = "SELECT p.process_name,p.process_id,sp.sub_process_name,sp.sub_process_id
-                  FROM tbl_process p
-                  LEFT JOIN tbl_sub_process sp ON p.process_id = sp.process_id"
+                  FROM process_master p
+                  LEFT JOIN sub_process_master sp ON p.process_id = sp.process_id"
                   ;
         $result = $this->db->query($query)->result_array();
         return $this->db->affected_rows() ? $result : false;

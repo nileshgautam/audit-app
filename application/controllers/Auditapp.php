@@ -115,7 +115,7 @@ class Auditapp extends CI_Controller
     // function to load work steps according to process
     function choose_services()
     {
-        $data['services'] = $this->MainModel->selectAll('tbl_process', 'process_name');
+        $data['services'] = $this->MainModel->selectAll('process_master', 'process_name');
         $this->load->view('layout/header');
         $this->load->view('layout/sidenav');
         $this->load->view('template/auditServices', $data);
@@ -172,9 +172,9 @@ class Auditapp extends CI_Controller
         $data['country'] = $this->MainModel->selectAll('countries', 'name');
         $data['role'] = $this->MainModel->selectAll('roles', 'role');
         $data['client_details'] = $this->MainModel->selectAllFromWhere('client_details', array('id' => $id));
-        $c_pro_id = json_decode($data['client_details'][0]['process'], true);
+        // $c_pro_id = json_decode($data['client_details'][0]['process'], true);
         $allProcess = $this->MainModel->getAllProcessWithSubprocess();
-        $data['services'] = $this->MainModel->selectAll('tbl_process', 'process_name');
+        $data['services'] = $this->MainModel->selectAll('process_master', 'process_name');
         //Filtering subprocess id's for fetching data
         // $cSelectPro = []; //Processes which are selected by client
         // foreach ($c_pro_id as $key => $value) {
@@ -212,7 +212,7 @@ class Auditapp extends CI_Controller
 
         //    $data['selectedProcess'] = $cSelectetGroupedPro;
         //    $data['unselectedProcess'] = $cUselectetGroupedPro;
-        $data['id'] = $c_pro_id;
+        // $data['id'] = $c_pro_id;
         // $data['allProcess'] = $cSelectetGroupedPro;
         // die;
         $this->load->view('layout/header');
@@ -243,9 +243,8 @@ class Auditapp extends CI_Controller
 
     public function clientPost()
     {
-        // print_r($_POST);
-        // die;
         $c_name = $this->input->post('client-name');
+        $c_id = $this->Audit_model->getNewIDorNo("CL", 'client_details');
         $c_address = $this->input->post('address');
         $c_city = $this->input->post('city');
         $c_state = $this->input->post('state');
@@ -256,23 +255,19 @@ class Auditapp extends CI_Controller
         $gst_number = $this->input->post('gst-number');
 
         if (isset($c_email)) {
-            // print_r($_POST);
-            // die;
             $data = $this->MainModel->selectAllFromWhere('client_details', array('email' => $c_email));
             if (!empty($data)) {
-                // print_r($data);
                 $this->session->set_flashdata("error", "Company, Already Exist Please enter uniqe company name.");
                 redirect(__CLASS__ . '/client_registration_form');
-                // die;
             } elseif (empty($data)) {
-
                 $insert = array(
                     'client_name' => $c_name,
+                    'client_id' => $c_id,
                     'address' => $c_address,
                     'city' => $c_city,
                     'state' => $c_state,
                     'country' => $c_country,
-                    'zip_pin_code' => $c_zip_pin_code,
+                    'pin_code' => $c_zip_pin_code,
                     'contact_no' => $c_contact_no,
                     'email' => $c_email,
                     'gst_number' => $gst_number
@@ -283,6 +278,7 @@ class Auditapp extends CI_Controller
 
                     $company_data = array(
                         'company_name' => $c_name,
+                        'client_id' => $c_id,
                         'email' => $c_email,
                         'company_id' => $res
                     );
@@ -309,13 +305,13 @@ class Auditapp extends CI_Controller
                 'city' => $_POST['city'],
                 'state' => $_POST['state'],
                 'country' => $_POST['country'],
-                'zip_pin_code' => $_POST['zip'],
+                'pin_code' => $_POST['zip'],
                 'contact_no' => $_POST['mobile-number'],
                 'email' => $_POST['email'],
                 'gst_number' => $_POST['gst-number'],
-                'process' => $_POST['process']
+                // 'process' => $_POST['process']
             );
-            $res = $this->MainModel->update_table('client_details', array('id' => $_POST['client_id']), $insert);
+            $res = $this->MainModel->update_table('client_details', array('client_id' => $_POST['client_id']), $insert);
             if (!empty($res)) {
                 $this->session->set_flashdata("success", "Client Successfully Updated.");
 
@@ -432,27 +428,30 @@ class Auditapp extends CI_Controller
         }
     }
 
-    function update_company()
+    function create_work_order()
     {
+        // print_r($_POST);die;
         if (!empty($_POST)) {
-            $process = $_POST['process'];
+            $wo_id = $this->Audit_model->getNewIDorNo("WO", 'work_order');
             $data = array(
-                'process' => $process
+                'work_order_id' => $wo_id,
+                'processes' => $_POST['process'],
+                'status' => '0',
             );
-            $result = $this->MainModel->update_table('client_details', array('id' => $_POST['id']), $data);
-            if ($result === true) {
-                // $this->session->set_flashdata('success', 'Client successfully register.');
-                // redirect(__CLASS__ . '/company');
-                echo "Client successfully register";
+            $result = $this->MainModel->insertInto('work_order', $data); //save work order
+
+            $relation = array(
+                'work_order_id' => $wo_id,
+                'client_id' => $_POST['client_id'],
+            );
+            $result = $this->MainModel->insertInto('client_workorder_relationship', $relation); //save relationship between workorder and client
+            if ($result) {
+                echo "Work Order Successfully Created";
             } else {
-                $this->session->set_flashdata('error', 'OPPs..');
-                // redirect(__CLASS__ . '/company');
-                echo "OPPs..";
+                echo "Something Wrong!";
             }
         } else {
-            // $this->session->set_flashdata('error', 'error occourd.');
-            // redirect(__CLASS__ . '/company');
-            echo "error occourd.";
+            echo "System Error! contact to IT";
         }
     }
 
