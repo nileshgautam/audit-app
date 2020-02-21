@@ -54,8 +54,9 @@
                                             <td><?php echo $client_list[$i]['gst_number'] ?></td>
                                             <td>
 
-                                                <a href="<?php echo base_url('Auditapp/edit_client/') . base64_encode($client_list[$i]['id']); ?>""> <i class=" fa fa-pencil" title="Edit"></i></a>
-                                                <!-- <a href="#"> <i class="fa fa-trash text-danger" aria-hidden="true" title="Delete"></i></a> -->
+                                                <a href="<?php echo base_url('Auditapp/edit_client/') . base64_encode($client_list[$i]['id']); ?>"> <i class=" fa fa-pencil" title="Edit"></i></a>
+
+                                                <a title="Create Work Order" href="<?php echo base_url('Auditapp/choose_services/') . base64_encode($client_list[$i]['client_id']); ?>"> <img style="height:20px" src="<?php echo base_url('assets/dist/img') . "/workorder.png"; ?>" alt=""></a>
 
                                             </td>
 

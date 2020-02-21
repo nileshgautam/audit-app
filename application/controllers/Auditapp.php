@@ -433,7 +433,7 @@ class Auditapp extends CI_Controller
     {
         // print_r($_POST);die;
         if (!empty($_POST)) {
-            $wo_id = $this->Audit_model->getNewIDorNo("WO", 'client_details');
+            $wo_id = $this->Audit_model->getNewIDorNo("WO", 'work_order');
             $data = array(
                 'work_order_id' => $wo_id,
                 'processes' => $_POST['process'],
