@@ -378,7 +378,7 @@ class Auditapp extends CI_Controller
     {
         // $data['client_list'] = $this->MainModel->selectAll('client_details', 'client_name');
         $data['role'] = $this->MainModel->selectAll('roles', 'role');
-        $data['user'] = $this->MainModel->selectAllFromWhere('users', array('id' => $id));
+        $data['user'] = $this->MainModel->selectAllFromWhere('users', array('user_id' => $id));
         // echo "<pre>";
         // print_r($data['user']);die;
 
