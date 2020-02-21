@@ -19,8 +19,9 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Users Administration</h3>
-                        <a class="offset-9" href="<?php echo base_url('Auditapp/user_view'); ?>"> <i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create new user"></i></a>
+                        <!-- <h3 class="box-title">Users Administration</h3> -->
+                        <a class="offset-9 btn btn-primary float-right" href="<?php echo base_url('Auditapp/user_view'); ?>"> Add Users <i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create new user"></i></a>
+                        <!-- <a class="offset-9" href="<?php echo base_url('Auditapp/user_view'); ?>"> <i class="fa fa-plus-square" id="create-client" aria-hidden="true" title="Create new user"></i></a> -->
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -29,7 +30,7 @@
                                 <tr>
                                     <th class="">#</th>
                                     <th class="">Name</th>
-                                    <th class="">Company Name</th>
+                                    <!-- <th class="">Company Name</th> -->
                                     <th class="">Role</th>
                                     <th class="" style="text-align: center">Action</th>
                                 </tr>
@@ -42,8 +43,8 @@
                                 ?>
                                         <tr>
                                             <td class=""><?php echo $i + 1 ?></td>
-                                            <td class=""><?php echo $users[$i]['user_first_name'] . " " . $users[$i]['user_last_name'] ?></td>
-                                            <td class=""><?php echo $users[$i]['client_name'] ?></td>
+                                            <td class=""><?php echo $users[$i]['first_name'] . " " . $users[$i]['last_name'] ?></td>
+                                            <!-- <td class=""><?php echo $users[$i]['client_name'] ?></td> -->
                                             <td class=""><?php echo $users[$i]['role'] ?></td>
                                             <td class="">
 

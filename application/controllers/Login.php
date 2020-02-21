@@ -22,7 +22,11 @@ class Login extends CI_Controller
     public function index()
     {
         $this->load->view('layout/header');
-        $this->load->view('login/loginPage');
+        $this->load->view('login1/loginPage');
+        $this->load->view('login/footer');      
+        //  $this->load->view('login/header');
+        // $this->load->view('login/index');
+        // $this->load->view('login/footer');
     }
 
     // validate user login by role

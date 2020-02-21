@@ -31,6 +31,7 @@ class Filter
         return $result;
     }
 }
+
 class Auditapp extends CI_Controller
 {
     function __construct()
@@ -134,9 +135,9 @@ class Auditapp extends CI_Controller
     // function to load company 
     public function user_view()
     {
-        $data['client_list'] = $this->MainModel->selectAll('tbl_client_details', 'client_name');
+        $data['client_list'] = $this->MainModel->selectAll('client_details', 'client_name');
         $data['country'] = $this->MainModel->selectAll('countries', 'name');
-        $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
+        $data['role'] = $this->MainModel->selectAll('roles', 'role');
         $this->load->view('layout/header');
         $this->load->view('layout/sidenav');
         $this->load->view('template/users', $data);
@@ -146,7 +147,7 @@ class Auditapp extends CI_Controller
     // function to load user table from database
     public function user_tab()
     {
-        $data['users'] = $this->MainModel->selectAll('tbl_user', 'user_first_name');
+        $data['users'] = $this->MainModel->selectAll('users', 'first_name');
         $this->load->view('layout/header');
         $this->load->view('layout/sidenav');
         $this->load->view('template/usertab', $data);
@@ -157,7 +158,7 @@ class Auditapp extends CI_Controller
     public function client_registration_form()
     {
         $data['country'] = $this->MainModel->selectAll('countries', 'name');
-        $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
+        $data['role'] = $this->MainModel->selectAll('roles', 'role');
         $this->load->view('layout/header');
         $this->load->view('layout/sidenav');
         $this->load->view('template/clientForm', $data);
@@ -169,8 +170,8 @@ class Auditapp extends CI_Controller
     {
         $id = base64_decode($id);
         $data['country'] = $this->MainModel->selectAll('countries', 'name');
-        $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
-        $data['client_details'] = $this->MainModel->selectAllFromWhere('tbl_client_details', array('id' => $id));
+        $data['role'] = $this->MainModel->selectAll('roles', 'role');
+        $data['client_details'] = $this->MainModel->selectAllFromWhere('client_details', array('id' => $id));
         $c_pro_id = json_decode($data['client_details'][0]['process'], true);
         $allProcess = $this->MainModel->getAllProcessWithSubprocess();
         $data['services'] = $this->MainModel->selectAll('tbl_process', 'process_name');
@@ -257,7 +258,7 @@ class Auditapp extends CI_Controller
         if (isset($c_email)) {
             // print_r($_POST);
             // die;
-            $data = $this->MainModel->selectAllFromWhere('tbl_client_details', array('email' => $c_email));
+            $data = $this->MainModel->selectAllFromWhere('client_details', array('email' => $c_email));
             if (!empty($data)) {
                 // print_r($data);
                 $this->session->set_flashdata("error", "Company, Already Exist Please enter uniqe company name.");
@@ -276,7 +277,7 @@ class Auditapp extends CI_Controller
                     'email' => $c_email,
                     'gst_number' => $gst_number
                 );
-                $res = $this->MainModel->insertInto('tbl_client_details', $insert);
+                $res = $this->MainModel->insertInto('client_details', $insert);
                 if (!empty($res)) {
                     $this->session->set_flashdata("error", "Company Successfully Registered.");
 
@@ -314,7 +315,7 @@ class Auditapp extends CI_Controller
                 'gst_number' => $_POST['gst-number'],
                 'process' => $_POST['process']
             );
-            $res = $this->MainModel->update_table('tbl_client_details', array('id' => $_POST['client_id']), $insert);
+            $res = $this->MainModel->update_table('client_details', array('id' => $_POST['client_id']), $insert);
             if (!empty($res)) {
                 $this->session->set_flashdata("success", "Client Successfully Updated.");
 
@@ -343,27 +344,24 @@ class Auditapp extends CI_Controller
         } else {
             // print_r($_POST);die;
             $data = array(
-                'user_first_name' => $this->input->post('first-name'),
-                'user_last_name' => $this->input->post('last-name'),
-                'user_password' => $this->input->post('password'),
-                'user_id' => $this->input->post('email'),
-                'user_role' => $this->input->post('user-role'),
+                'first_name' => $this->input->post('first-name'),
+                'last_name' => $this->input->post('last-name'),
+                'password' => $this->input->post('password'),
+                'user_id' =>  $this->Audit_model->getNewIDorNo('U', 'users'),
                 'role' => $this->input->post('role'),
-                'user_email' => $this->input->post('email'),
-                'user_client_id' => $this->input->post('company-id'),
-                'client_name' => $this->input->post('client')
+                'email' => $this->input->post('email'),
             );
             // print_r($_POST);
             // echo "<pre>";
             // print_r($data);die;
             if (isset($_POST['email'])) {
-                $email = $this->MainModel->selectAllFromWhere('tbl_user', array('user_email' => $_POST['email']));
-                if (!empty($email)) {
+                $userid = $this->MainModel->selectAllFromWhere('users', array('user_id' => $_POST['user_id']));
+                if (!empty($userid)) {
                     // print_r($data);
                     $this->session->set_flashdata("error", "User already exist");
                     redirect(__CLASS__ . '/user_view');
-                } elseif (empty($email)) {
-                    $inserted_data = $this->MainModel->insertInto('tbl_user', $data);
+                } elseif (empty($userid)) {
+                    $inserted_data = $this->MainModel->insertInto('users', $data);
                     if (isset($inserted_data)) {
                         $this->session->set_flashdata("success", "User successfuly register.");
                         redirect(__CLASS__ . '/user_tab');
@@ -378,9 +376,11 @@ class Auditapp extends CI_Controller
 
     public function edit_user($id)
     {
-        $data['client_list'] = $this->MainModel->selectAll('tbl_client_details', 'client_name');
-        $data['role'] = $this->MainModel->selectAll('tbl_role', 'role');
-        $data['user'] = $this->MainModel->selectAllFromWhere('tbl_user', array('id' => $id));
+        // $data['client_list'] = $this->MainModel->selectAll('client_details', 'client_name');
+        $data['role'] = $this->MainModel->selectAll('roles', 'role');
+        $data['user'] = $this->MainModel->selectAllFromWhere('users', array('id' => $id));
+        // echo "<pre>";
+        // print_r($data['user']);die;
 
         $this->load->view('layout/header');
         $this->load->view('layout/sidenav');
@@ -389,7 +389,7 @@ class Auditapp extends CI_Controller
     }
     public function delete_user($id)
     {
-        $data = $this->MainModel->delete('tbl_user', array('id' => $id));
+        $data = $this->MainModel->delete('users', array('id' => $id));
         if ($data != true) {
             $this->session->set_flashdata("error", "error.");
             redirect(__CLASS__ . '/user_tab');
@@ -412,18 +412,17 @@ class Auditapp extends CI_Controller
     {
 
         $data = array(
-            'user_first_name' => $this->input->post('first-name'),
-            'user_last_name' => $this->input->post('last-name'),
-            'user_password' => $this->input->post('password'),
-            'user_id' => $this->input->post('email'),
-            'user_role' => $this->input->post('user-role'),
+            'first_name' => $this->input->post('first-name'),
+            'last_name' => $this->input->post('last-name'),
+            'password' => $this->input->post('password'),
+            // 'id' => $this->input->post('email'),
+            'role' => $this->input->post('user-role'),
             'role' => $this->input->post('role'),
-            'user_email' => $this->input->post('email'),
-            'user_client_id' => $this->input->post('company-id'),
-            'client_name' => $this->input->post('client')
+            // 'email' => $this->input->post('email'),
+  
         );
         $id = $this->input->post('id');
-        $result = $this->MainModel->update_table('tbl_user', array('id' => $id), $data);
+        $result = $this->MainModel->update_table('users', array('id' => $id), $data);
         if ($result == "FALSE") {
             $this->session->set_flashdata("success", " User updated successfuly register.");
             redirect(__CLASS__ . '/user_tab');
@@ -440,7 +439,7 @@ class Auditapp extends CI_Controller
             $data = array(
                 'process' => $process
             );
-            $result = $this->MainModel->update_table('tbl_client_details', array('id' => $_POST['id']), $data);
+            $result = $this->MainModel->update_table('client_details', array('id' => $_POST['id']), $data);
             if ($result === true) {
                 // $this->session->set_flashdata('success', 'Client successfully register.');
                 // redirect(__CLASS__ . '/company');
@@ -490,10 +489,10 @@ class Auditapp extends CI_Controller
         echo $uploads_file = json_encode($data, true);
     }
 
-// function to show uploaded work steps file 
+    // function to show uploaded work steps file 
     public function worksteps_file()
     {
-         $data = $this->MainModel->selectAllWhere('files', array('work_steps_id' => $_POST['workstepsid'], 'client_id' => $_POST['companyid']));
+        $data = $this->MainModel->selectAllWhere('files', array('work_steps_id' => $_POST['workstepsid'], 'client_id' => $_POST['companyid']));
         echo $uploads_file = json_encode($data, true);
     }
 }

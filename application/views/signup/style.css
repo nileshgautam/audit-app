@@ -1,0 +1,208 @@
+.void {
+    padding-top: 90px;
+    height: 10px;
+    background-color: lightseagreen;
+}
+
+.signuppage {
+    padding: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightseagreen;
+}
+
+.register-card {
+    padding: 4rem;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.register-card .head {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-card .base {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.input-control {
+    padding: 0.6rem 0;
+}
+
+.input-control input {
+    padding: 0.4rem;
+    border:none;
+    outline: none;
+    border-bottom: 1px solid #999;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;;
+
+}
+
+.fa {
+    color: #999;
+}
+
+.button-control {
+    padding: 0.9rem 0;
+}
+
+.button-control button {
+    width: 210px;
+    background-color: white;
+    border: 0;
+    border: 1px solid #FD3466;
+    border-radius: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: #FD3466;
+    padding: 0.5rem;
+    outline: none;
+}
+
+.button-control button:hover {
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition:  background-color 1000ms linear;
+    color: white;
+    background-color: #FD3466;
+}
+
+.input-control i:hover {
+    -webkit-transition: color 200ms linear;
+    -ms-transition: color 200ms linear;
+    transition: color 200ms linear;
+    color: #3ca2e0;
+}
+
+.input-control i:hover input {
+    -webkit-transition: border-bottom 200ms linear;
+    -ms-transition: border-bottom 200ms linear;
+    transition: border-bottom 200ms linear;
+    border-bottom: 1.2px solid #3ca2e0;
+    color: #3ca2e0;
+}
+
+.forget-pass-wrapper {
+    cursor: pointer;
+    font-size: 0.7rem;
+    margin-bottom: 0.8rem;
+}
+
+.forget-pass-wrapper:hover {
+    -webkit-transition: color 500ms linear;
+    -ms-transition: color 500ms linear;
+    transition:  color 500ms linear;
+    color: #FD3466;
+}
+
+.bottom .title {
+    text-align: center;
+    font-size: 0.7rem;
+    padding-bottom: 0.7rem;
+}
+
+.bottom .social-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.bottom .social-btn button {
+    width: 100px;
+    margin: 0.3rem;
+    padding: 0.3rem;
+    border: none;
+    border: 1px solid #3ca2e0;
+    border-radius: 24px;
+    background-color: white;
+    color: #3ca2e0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bottom .social-btn i {
+    color: greenyellow;
+}
+
+.bottom .social-btn button:hover {
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition:  background-color 1000ms linear;
+    color: white;
+    background-color: #3ca2e0;
+}
+
+.new-account {
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.new-account-mask {
+    text-decoration: none;
+    color: #777;
+}
+
+
+.new-account-mask:hover i{
+    -webkit-transition: color 1000ms linear;
+    -ms-transition: color 1000ms linear;
+    transition:  color 1000ms linear;
+    color: #06A94D;
+}
+
+.new-account-mask:hover {
+    -webkit-transition: color 1000ms linear;
+    -ms-transition: color 1000ms linear;
+    transition:  color 1000ms linear;
+    color: #06A94D;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: #3ca2e0;
+}
+
+.pswd-info-wrapper {
+    position: relative;
+}
+
+#pswd_info {
+    position:absolute;
+    top:3px;
+    right:-20px;
+    width:250px;
+    padding:15px;
+    background:#fefefe;
+    font-size:.875em;
+    border-radius:5px;
+    box-shadow:0 1px 3px #ccc;
+    border:1px solid #ddd;
+}
+
+#pswd_info h4 {
+    margin:0 0 10px 0;
+    padding:0;
+    font-weight:normal;
+}
+
+#pswd_info::before {
+    content: "\25B2";
+    position:absolute;
+    top:-12px;
+    left:45%;
+    font-size:14px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+}
+
+#pswd_info {
+    display:none;
+}

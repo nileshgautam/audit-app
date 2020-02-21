@@ -61,6 +61,19 @@
             <li><a class="" href="<?php echo base_url('MainWebsite/upload_excel') ?>">Manage Master File</a></li>
           </ul>
         </li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Work Orders</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a class="" href="#">Create Work order</a></li>
+            <li><a class="" href="<?php echo base_url('AssignWorkOrder/allowcated_work_order') ?>">Assign Work order</a></li>
+          </ul>
+        </li>
+        <!-- menus for another users -->
       <?php elseif ($_SESSION['userInfo']['user_role'] === '20') : ?>
         <li class="active treeview">
           <a href="#">
