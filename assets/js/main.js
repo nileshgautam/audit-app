@@ -26,6 +26,7 @@ $("#country").change(function () {
     // alert(id);
 });
 
+$("#country").change();
 
 $("#state").change(function () {
     let id = $(this).children("option:selected").attr('id');
@@ -54,7 +55,7 @@ $("#state").change(function () {
     });
     // alert(id);
 });
-
+$("#state").change();
 function populate_option(obj) {
     let html = '';
     for (let i = 0; i < obj.length; i++) {
@@ -138,16 +139,21 @@ $('.submit-services').on('click', function () {
 
     })
     let companyId = $('#company_id').val();
+    let clientId = $('#client_id').val();
     // console.log(companyId);
     // console.log(process);
-    let formData = { id: companyId, process: JSON.stringify(process) }
+    let formData = { client_id: clientId, id: companyId, process: JSON.stringify(process) }
     $.ajax({
         type: 'POST',
-        url: baseUrl + '/Auditapp/update_company',
+        url: baseUrl + '/Auditapp/create_work_order',
         data: formData,
         success: function (data, success) {
-            // console.log(data);
-            window.location = baseUrl + "Auditapp/company";
+            showAlert(data, "success");
+            setTimeout(() => {
+                window.location = baseUrl + "Auditapp/company";
+            }, 1000);
+            console.log(data);
+            // 
         }
 
     });
